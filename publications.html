@@ -67,47 +67,16 @@
 </button>
 </div>
 </header>
-    <button class="lang-btn flex items-center gap-2 px-3 py-1.5 rounded-md bg-white dark:bg-[#1a202c] shadow-sm text-sm font-bold text-[#111318] dark:text-white transition-all ring-1 ring-black/5 dark:ring-white/10" data-lang="en">
-        <span class="text-base">🇬🇧</span>
-        <span>EN</span>
-    </button>
-    <button class="lang-btn flex items-center gap-2 px-3 py-1.5 rounded-md text-sm font-medium text-[#616f89] dark:text-gray-400 hover:text-[#111318] dark:hover:text-white transition-all" data-lang="es">
-        <span class="text-base">🇦🇷</span>
-        <span>ES</span>
-    </button>
-</div>
-<button class="md:hidden p-2 text-gray-600 dark:text-gray-300">
-<span class="material-symbols-outlined">menu</span>
-</button>
-</div>
-</header>
 <main class="flex-grow">
-<div class="flex flex-col max-w-[1024px] w-full gap-6">
+<div class="flex flex-col max-w-[1024px] w-full gap-6 mx-auto">
 <div class="flex flex-wrap gap-2 px-0 md:px-4 items-center">
-<a class="text-[#616f89] dark:text-gray-400 text-sm font-medium hover:text-primary" href="#">Home</a>
-<span class="material-symbols-outlined text-[#616f89] dark:text-gray-500 text-[16px]">chevron_right</span>
-<a class="text-[#616f89] dark:text-gray-400 text-sm font-medium hover:text-primary" href="#">Research</a>
-<span class="material-symbols-outlined text-[#616f89] dark:text-gray-500 text-[16px]">chevron_right</span>
-<span class="text-primary text-sm font-medium">Publications</span>
 </div>
 <div class="flex flex-col md:flex-row justify-between gap-6 px-0 md:px-4">
-<div class="flex flex-col gap-3 max-w-2xl">
+<div class="flex flex-col gap-3">
 <h1 class="text-[#111318] dark:text-white text-3xl md:text-4xl font-black leading-tight tracking-[-0.033em]" data-en="Academic Output" data-es="Producción Académica">Academic Output</h1>
-<p class="text-[#616f89] dark:text-gray-400 text-base font-normal leading-normal">
+<p class="text-[#616f89] dark:text-gray-400 text-base font-normal leading-normal" data-en="Explore our research group's comprehensive list of contributions to scientific literature, including peer-reviewed articles, conference proceedings, and more." data-es="Explorá la lista completa de contribuciones de nuestro grupo de investigación a la literatura científica, incluyendo artículos revisados por pares, actas de conferencias y más.">
                         Explore our research group's comprehensive list of contributions to scientific literature, including peer-reviewed articles, conference proceedings, and technical reports.
-                    </p>
-</div>
-<div class="hidden lg:flex gap-4">
-<div class="flex flex-col justify-center items-center bg-white dark:bg-[#1a2230] p-4 rounded-xl shadow-sm border border-slate-100 dark:border-slate-700 min-w-[120px]">
-<span class="text-2xl font-bold text-primary">142</span>
-<span class="text-xs text-[#616f89] uppercase tracking-wide font-medium">Papers</span>
-</div>
-<div class="flex flex-col justify-center items-center bg-white dark:bg-[#1a2230] p-4 rounded-xl shadow-sm border border-slate-100 dark:border-slate-700 min-w-[120px]">
-<span class="text-2xl font-bold text-primary">2.4k</span>
-<span class="text-xs text-[#616f89] uppercase tracking-wide font-medium">Citations</span>
-</div>
-</div>
-</div>
+
 <div class="sticky top-0 z-10 bg-background-light dark:bg-background-dark py-4 -mx-4 px-4 md:px-0 md:mx-0 md:static">
 <div class="flex flex-col md:flex-row gap-4 px-0 md:px-4 items-start md:items-center justify-between">
 <div class="w-full md:max-w-md">
@@ -116,64 +85,148 @@
 <div class="text-[#616f89] flex items-center justify-center pl-3">
 <span class="material-symbols-outlined text-[20px]">search</span>
 </div>
-<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#111318] dark:text-white focus:outline-0 focus:ring-0 border-none bg-transparent h-full placeholder:text-[#616f89] px-3 text-sm font-normal" placeholder="Search by title, author, or keyword..."/>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-[#111318] dark:text-white focus:outline-0 focus:ring-0 border-none bg-transparent h-full placeholder:text-[#616f89] px-3 text-sm font-normal" placeholder="Search by title, author, or keyword..." data-en="Search by title, author, or keyword..." data-es="Buscar por título, autor o palabra clave..."/>
 </div>
 </label>
 </div>
-<div class="flex gap-2 overflow-x-auto w-full md:w-auto pb-2 md:pb-0 no-scrollbar">
-<button class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-full bg-primary text-white pl-4 pr-4 transition-all shadow-md shadow-primary/20">
-<span class="text-sm font-medium">All</span>
-</button>
-<button class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-full bg-white dark:bg-[#1a2230] border border-[#dce0e5] dark:border-[#2a3447] hover:border-primary/50 text-[#616f89] dark:text-gray-300 hover:text-primary pl-4 pr-4 transition-all">
-<span class="text-sm font-medium">Journal Articles</span>
-</button>
-<button class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-full bg-white dark:bg-[#1a2230] border border-[#dce0e5] dark:border-[#2a3447] hover:border-primary/50 text-[#616f89] dark:text-gray-300 hover:text-primary pl-4 pr-4 transition-all">
-<span class="text-sm font-medium">Conference</span>
-</button>
-<button class="flex h-9 shrink-0 items-center justify-center gap-x-2 rounded-full bg-white dark:bg-[#1a2230] border border-[#dce0e5] dark:border-[#2a3447] hover:border-primary/50 text-[#616f89] dark:text-gray-300 hover:text-primary pl-4 pr-4 transition-all">
-<span class="text-sm font-medium">Preprints</span>
-</button>
-</div>
+
 </div>
 </div>
 <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 px-0 md:px-4 pb-10">
 <div class="hidden lg:flex lg:col-span-3 flex-col gap-6">
 <div class="bg-white dark:bg-[#1a2230] rounded-xl p-5 border border-[#f0f2f4] dark:border-[#2a3447] sticky top-4">
-<h3 class="text-[#111318] dark:text-white text-base font-bold mb-4 flex items-center gap-2">
+<h3 class="text-[#111318] dark:text-white text-base font-bold mb-4 flex items-center gap-2" data-en="Filter by Year" data-es="Filtrar por Año">
 <span class="material-symbols-outlined text-primary text-[20px]">calendar_month</span>
                             Filter by Year
                         </h3>
 <div class="flex flex-col gap-1">
 <label class="flex items-center gap-3 p-2 rounded-lg hover:bg-background-light dark:hover:bg-slate-800 cursor-pointer group">
-<div class="relative flex items-center">
-<input checked="" class="peer size-4 appearance-none rounded border border-[#dce0e5] checked:border-primary checked:bg-primary focus:ring-0 transition-all" type="checkbox"/>
-<span class="material-symbols-outlined absolute inset-0 hidden text-white text-[14px] pointer-events-none peer-checked:block text-center leading-4">check</span>
-</div>
-<span class="text-sm text-[#111318] dark:text-gray-200 font-medium group-hover:text-primary">2024</span>
-<span class="ml-auto text-xs text-[#616f89] bg-slate-100 dark:bg-slate-700 px-2 py-0.5 rounded-full">12</span>
+    <div class="relative flex items-center">
+        <input checked="" class="peer size-4 appearance-none rounded border border-[#dce0e5] checked:border-primary checked:bg-primary focus:ring-0 transition-all" type="checkbox" name="year" value="2024"/>
+        <span class="material-symbols-outlined absolute inset-0 hidden text-white text-[14px] pointer-events-none peer-checked:block text-center leading-4">check</span>
+    </div>
+    <span class="text-sm text-[#111318] dark:text-gray-200 font-medium group-hover:text-primary">2024</span>
+    <span class="ml-auto text-xs text-[#616f89] bg-slate-100 dark:bg-slate-700 px-2 py-0.5 rounded-full">3</span>
 </label>
 <label class="flex items-center gap-3 p-2 rounded-lg hover:bg-background-light dark:hover:bg-slate-800 cursor-pointer group">
-<div class="relative flex items-center">
-<input class="peer size-4 appearance-none rounded border border-[#dce0e5] checked:border-primary checked:bg-primary focus:ring-0 transition-all" type="checkbox"/>
-<span class="material-symbols-outlined absolute inset-0 hidden text-white text-[14px] pointer-events-none peer-checked:block text-center leading-4">check</span>
-</div>
-<span class="text-sm text-[#111318] dark:text-gray-200 font-medium group-hover:text-primary">2023</span>
-<span class="ml-auto text-xs text-[#616f89] bg-slate-100 dark:bg-slate-700 px-2 py-0.5 rounded-full">8</span>
+    <div class="relative flex items-center">
+        <input class="peer size-4 appearance-none rounded border border-[#dce0e5] checked:border-primary checked:bg-primary focus:ring-0 transition-all" type="checkbox" name="year" value="2023"/>
+        <span class="material-symbols-outlined absolute inset-0 hidden text-white text-[14px] pointer-events-none peer-checked:block text-center leading-4">check</span>
+    </div>
+    <span class="text-sm text-[#111318] dark:text-gray-200 font-medium group-hover:text-primary">2023</span>
+    <span class="ml-auto text-xs text-[#616f89] bg-slate-100 dark:bg-slate-700 px-2 py-0.5 rounded-full">2</span>
 </label>
 <label class="flex items-center gap-3 p-2 rounded-lg hover:bg-background-light dark:hover:bg-slate-800 cursor-pointer group">
-<div class="relative flex items-center">
-<input class="peer size-4 appearance-none rounded border border-[#dce0e5] checked:border-primary checked:bg-primary focus:ring-0 transition-all" type="checkbox"/>
-<span class="material-symbols-outlined absolute inset-0 hidden text-white text-[14px] pointer-events-none peer-checked:block text-center leading-4">check</span>
-</div>
-<span class="text-sm text-[#111318] dark:text-gray-200 font-medium group-hover:text-primary">2022</span>
-<span class="ml-auto text-xs text-[#616f89] bg-slate-100 dark:bg-slate-700 px-2 py-0.5 rounded-full">15</span>
+    <div class="relative flex items-center">
+        <input class="peer size-4 appearance-none rounded border border-[#dce0e5] checked:border-primary checked:bg-primary focus:ring-0 transition-all" type="checkbox" name="year" value="2022"/>
+        <span class="material-symbols-outlined absolute inset-0 hidden text-white text-[14px] pointer-events-none peer-checked:block text-center leading-4">check</span>
+    </div>
+    <span class="text-sm text-[#111318] dark:text-gray-200 font-medium group-hover:text-primary">2022</span>
+    <span class="ml-auto text-xs text-[#616f89] bg-slate-100 dark:bg-slate-700 px-2 py-0.5 rounded-full">1</span>
 </label>
 <label class="flex items-center gap-3 p-2 rounded-lg hover:bg-background-light dark:hover:bg-slate-800 cursor-pointer group">
-<div class="relative flex items-center">
-<input class="peer size-4 appearance-none rounded border border-[#dce0e5] checked:border-primary checked:bg-primary focus:ring-0 transition-all" type="checkbox"/>
-<span class="material-symbols-outlined absolute inset-0 hidden text-white text-[14px] pointer-events-none peer-checked:block text-center leading-4">check</span>
+    <div class="relative flex items-center">
+        <input class="peer size-4 appearance-none rounded border border-[#dce0e5] checked:border-primary checked:bg-primary focus:ring-0 transition-all" type="checkbox" name="year" value="2021"/>
+        <span class="material-symbols-outlined absolute inset-0 hidden text-white text-[14px] pointer-events-none peer-checked:block text-center leading-4">check</span>
+    </div>
+    <span class="text-sm text-[#111318] dark:text-gray-200 font-medium group-hover:text-primary">2021</span>
+    <span class="ml-auto text-xs text-[#616f89] bg-slate-100 dark:bg-slate-700 px-2 py-0.5 rounded-full">1</span>
+</label>
+<label class="flex items-center gap-3 p-2 rounded-lg hover:bg-background-light dark:hover:bg-slate-800 cursor-pointer group">
+    <div class="relative flex items-center">
+        <input class="peer size-4 appearance-none rounded border border-[#dce0e5] checked:border-primary checked:bg-primary focus:ring-0 transition-all" type="checkbox" name="year" value="2018"/>
+        <span class="material-symbols-outlined absolute inset-0 hidden text-white text-[14px] pointer-events-none peer-checked:block text-center leading-4">check</span>
+    </div>
+    <span class="text-sm text-[#111318] dark:text-gray-200 font-medium group-hover:text-primary">2018</span>
+    <span class="ml-auto text-xs text-[#616f89] bg-slate-100 dark:bg-slate-700 px-2 py-0.5 rounded-full">3</span>
+</label>
+<label class="flex items-center gap-3 p-2 rounded-lg hover:bg-background-light dark:hover:bg-slate-800 cursor-pointer group">
+    <div class="relative flex items-center">
+        <input class="peer size-4 appearance-none rounded border border-[#dce0e5] checked:border-primary checked:bg-primary focus:ring-0 transition-all" type="checkbox" name="year" value="2017"/>
+        <span class="material-symbols-outlined absolute inset-0 hidden text-white text-[14px] pointer-events-none peer-checked:block text-center leading-4">check</span>
+    </div>
+    <span class="text-sm text-[#111318] dark:text-gray-200 font-medium group-hover:text-primary">2017</span>
+    <span class="ml-auto text-xs text-[#616f89] bg-slate-100 dark:bg-slate-700 px-2 py-0.5 rounded-full">1</span>
+</label>
+<label class="flex items-center gap-3 p-2 rounded-lg hover:bg-background-light dark:hover:bg-slate-800 cursor-pointer group">
+    <div class="relative flex items-center">
+        <input class="peer size-4 appearance-none rounded border border-[#dce0e5] checked:border-primary checked:bg-primary focus:ring-0 transition-all" type="checkbox" name="year" value="2015"/>
+        <span class="material-symbols-outlined absolute inset-0 hidden text-white text-[14px] pointer-events-none peer-checked:block text-center leading-4">check</span>
+    </div>
+    <span class="text-sm text-[#111318] dark:text-gray-200 font-medium group-hover:text-primary">2015</span>
+    <span class="ml-auto text-xs text-[#616f89] bg-slate-100 dark:bg-slate-700 px-2 py-0.5 rounded-full">1</span>
+</label>
+<label class="flex items-center gap-3 p-2 rounded-lg hover:bg-background-light dark:hover:bg-slate-800 cursor-pointer group">
+    <div class="relative flex items-center">
+        <input class="peer size-4 appearance-none rounded border border-[#dce0e5] checked:border-primary checked:bg-primary focus:ring-0 transition-all" type="checkbox" name="year" value="2014"/>
+        <span class="material-symbols-outlined absolute inset-0 hidden text-white text-[14px] pointer-events-none peer-checked:block text-center leading-4">check</span>
+    </div>
+    <span class="text-sm text-[#111318] dark:text-gray-200 font-medium group-hover:text-primary">2014</span>
+    <span class="ml-auto text-xs text-[#616f89] bg-slate-100 dark:bg-slate-700 px-2 py-0.5 rounded-full">1</span>
+</label>
+<label class="flex items-center gap-3 p-2 rounded-lg hover:bg-background-light dark:hover:bg-slate-800 cursor-pointer group">
+    <div class="relative flex items-center">
+        <input class="peer size-4 appearance-none rounded border border-[#dce0e5] checked:border-primary checked:bg-primary focus:ring-0 transition-all" type="checkbox" name="year" value="2012"/>
+        <span class="material-symbols-outlined absolute inset-0 hidden text-white text-[14px] pointer-events-none peer-checked:block text-center leading-4">check</span>
+    </div>
+    <span class="text-sm text-[#111318] dark:text-gray-200 font-medium group-hover:text-primary">2012</span>
+    <span class="ml-auto text-xs text-[#616f89] bg-slate-100 dark:bg-slate-700 px-2 py-0.5 rounded-full">1</span>
+</label>
+<label class="flex items-center gap-3 p-2 rounded-lg hover:bg-background-light dark:hover:bg-slate-800 cursor-pointer group">
+    <div class="relative flex items-center">
+        <input class="peer size-4 appearance-none rounded border border-[#dce0e5] checked:border-primary checked:bg-primary focus:ring-0 transition-all" type="checkbox" name="year" value="older"/>
+        <span class="material-symbols-outlined absolute inset-0 hidden text-white text-[14px] pointer-events-none peer-checked:block text-center leading-4">check</span>
+    </div>
+    <span class="text-sm text-[#111318] dark:text-gray-200 font-medium group-hover:text-primary">Older</span>
+    <span class="ml-auto text-xs text-[#616f89] bg-slate-100 dark:bg-slate-700 px-2 py-0.5 rounded-full">0</span>
+</label>
 </div>
-<span class="text-sm text-[#111318] dark:text-gray-200 font-medium group-hover:text-primary">Older</span>
+</div>
+<div class="bg-white dark:bg-[#1a2230] rounded-xl p-5 border border-[#f0f2f4] dark:border-[#2a3447] sticky top-4">
+<h3 class="text-[#111318] dark:text-white text-base font-bold mb-4 flex items-center gap-2" data-en="Filter by Type" data-es="Filtrar por Tipo">
+<span class="material-symbols-outlined text-primary text-[20px]">category</span>
+                            Filter by Type
+                        </h3>
+<div class="flex flex-col gap-1">
+<label class="flex items-center gap-3 p-2 rounded-lg hover:bg-background-light dark:hover:bg-slate-800 cursor-pointer group">
+    <div class="relative flex items-center">
+        <input class="peer size-4 appearance-none rounded border border-[#dce0e5] checked:border-primary checked:bg-primary focus:ring-0 transition-all" type="checkbox" name="type" value="journal"/>
+        <span class="material-symbols-outlined absolute inset-0 hidden text-white text-[14px] pointer-events-none peer-checked:block text-center leading-4">check</span>
+    </div>
+    <span class="text-sm text-[#111318] dark:text-gray-200 font-medium group-hover:text-primary" data-en="Journal Articles" data-es="Artículos de Revista">Journal Articles</span>
+    <span class="ml-auto text-xs text-[#616f89] bg-slate-100 dark:bg-slate-700 px-2 py-0.5 rounded-full">12</span>
+</label>
+<label class="flex items-center gap-3 p-2 rounded-lg hover:bg-background-light dark:hover:bg-slate-800 cursor-pointer group">
+    <div class="relative flex items-center">
+        <input class="peer size-4 appearance-none rounded border border-[#dce0e5] checked:border-primary checked:bg-primary focus:ring-0 transition-all" type="checkbox" name="type" value="conference"/>
+        <span class="material-symbols-outlined absolute inset-0 hidden text-white text-[14px] pointer-events-none peer-checked:block text-center leading-4">check</span>
+    </div>
+    <span class="text-sm text-[#111318] dark:text-gray-200 font-medium group-hover:text-primary" data-en="Conference" data-es="Congreso">Conference</span>
+    <span class="ml-auto text-xs text-[#616f89] bg-slate-100 dark:bg-slate-700 px-2 py-0.5 rounded-full">0</span>
+</label>
+<label class="flex items-center gap-3 p-2 rounded-lg hover:bg-background-light dark:hover:bg-slate-800 cursor-pointer group">
+    <div class="relative flex items-center">
+        <input class="peer size-4 appearance-none rounded border border-[#dce0e5] checked:border-primary checked:bg-primary focus:ring-0 transition-all" type="checkbox" name="type" value="preprint"/>
+        <span class="material-symbols-outlined absolute inset-0 hidden text-white text-[14px] pointer-events-none peer-checked:block text-center leading-4">check</span>
+    </div>
+    <span class="text-sm text-[#111318] dark:text-gray-200 font-medium group-hover:text-primary" data-en="Preprints" data-es="Preimpresiones">Preprints</span>
+    <span class="ml-auto text-xs text-[#616f89] bg-slate-100 dark:bg-slate-700 px-2 py-0.5 rounded-full">2</span>
+</label>
+<label class="flex items-center gap-3 p-2 rounded-lg hover:bg-background-light dark:hover:bg-slate-800 cursor-pointer group">
+    <div class="relative flex items-center">
+        <input class="peer size-4 appearance-none rounded border border-[#dce0e5] checked:border-primary checked:bg-primary focus:ring-0 transition-all" type="checkbox" name="type" value="book"/>
+        <span class="material-symbols-outlined absolute inset-0 hidden text-white text-[14px] pointer-events-none peer-checked:block text-center leading-4">check</span>
+    </div>
+    <span class="text-sm text-[#111318] dark:text-gray-200 font-medium group-hover:text-primary" data-en="Book" data-es="Libro">Book</span>
+    <span class="ml-auto text-xs text-[#616f89] bg-slate-100 dark:bg-slate-700 px-2 py-0.5 rounded-full">0</span>
+</label>
+<label class="flex items-center gap-3 p-2 rounded-lg hover:bg-background-light dark:hover:bg-slate-800 cursor-pointer group">
+    <div class="relative flex items-center">
+        <input class="peer size-4 appearance-none rounded border border-[#dce0e5] checked:border-primary checked:bg-primary focus:ring-0 transition-all" type="checkbox" name="type" value="dissertation"/>
+        <span class="material-symbols-outlined absolute inset-0 hidden text-white text-[14px] pointer-events-none peer-checked:block text-center leading-4">check</span>
+    </div>
+    <span class="text-sm text-[#111318] dark:text-gray-200 font-medium group-hover:text-primary" data-en="Dissertation" data-es="Tesis">Dissertation</span>
+    <span class="ml-auto text-xs text-[#616f89] bg-slate-100 dark:bg-slate-700 px-2 py-0.5 rounded-full">0</span>
 </label>
 </div>
 </div>
@@ -183,77 +236,81 @@
 <h2 class="text-2xl font-bold text-[#111318] dark:text-white">2024</h2>
 <div class="h-px bg-[#dce0e5] dark:bg-[#2a3447] flex-1"></div>
 </div>
-<div class="group relative flex flex-col bg-white dark:bg-[#1a2230] p-6 rounded-xl border border-[#dce0e5] dark:border-[#2a3447] shadow-sm hover:shadow-md transition-all hover:border-primary/50">
-<div class="absolute top-0 left-0 w-1 h-full bg-primary rounded-l-xl"></div>
+<div class="group publication flex flex-col bg-white dark:bg-[#1a2230] p-6 rounded-xl border border-[#dce0e5] dark:border-[#2a3447] shadow-sm hover:shadow-md transition-all" data-year="2024" data-type="journal" data-title="Seqrutinator: scrutiny of large protein superfamily sequence datasets for the identification and elimination of non-functional homologues" data-authors="A Amalfitano, N Stocchi, HM Atencio, F Villarreal, and A ten Have">
 <div class="flex flex-col gap-2">
-<div class="flex justify-between items-start">
 <div class="flex gap-2 mb-1">
-<span class="inline-flex items-center rounded-md bg-primary/10 px-2 py-1 text-xs font-medium text-primary ring-1 ring-inset ring-primary/20">Featured</span>
-<span class="inline-flex items-center rounded-md bg-slate-100 dark:bg-slate-800 px-2 py-1 text-xs font-medium text-[#616f89] dark:text-gray-400">Journal Article</span>
-</div>
+<span class="inline-flex items-center rounded-md bg-slate-100 dark:bg-slate-800 px-2 py-1 text-xs font-medium text-[#616f89] dark:text-gray-400" data-en="Journal Article" data-es="Artículo de Revista">Journal Article</span>
 </div>
 <h3 class="text-lg font-bold text-[#111318] dark:text-white leading-snug group-hover:text-primary transition-colors cursor-pointer">
-                                Optimizing Neural Network Architecture for Low-Resource Environments
+                                Seqrutinator: scrutiny of large protein superfamily sequence datasets for the identification and elimination of non-functional homologues
                             </h3>
 <p class="text-sm text-[#616f89] dark:text-gray-400 leading-relaxed">
-<span class="font-medium text-[#111318] dark:text-gray-200 underline decoration-primary/30 underline-offset-2">M. Rodriguez</span>, S. Chen, A. Kumar, and <span class="font-medium text-[#111318] dark:text-gray-200 underline decoration-primary/30 underline-offset-2">L. Fernandez</span>
+A Amalfitano, N Stocchi, HM Atencio, <span class="font-medium text-[#111318] dark:text-gray-200 underline decoration-primary/30 underline-offset-2">F Villarreal</span>, and <span class="font-medium text-[#111318] dark:text-gray-200 underline decoration-primary/30 underline-offset-2">A ten Have</span>
 </p>
 <div class="flex flex-wrap items-center gap-x-4 gap-y-2 mt-1 text-sm text-[#616f89] dark:text-gray-500 italic">
-<span>IEEE Transactions on Pattern Analysis</span>
-<span class="text-xs text-slate-300">•</span>
-<span>Vol. 45, Issue 3</span>
-<span class="text-xs text-slate-300">•</span>
-<span>pp. 112-125</span>
+<span>Genome Biology</span>
 </div>
 <div class="flex flex-wrap gap-3 mt-4 pt-4 border-t border-dashed border-[#f0f2f4] dark:border-[#2a3447]">
-<a class="flex items-center gap-1.5 text-xs font-bold text-[#111318] dark:text-white hover:text-primary transition-colors bg-[#f0f2f4] dark:bg-[#2a3447] px-3 py-1.5 rounded-lg hover:bg-primary/10" href="#">
-<span class="material-symbols-outlined text-[16px]">picture_as_pdf</span>
-                                    PDF
-                                </a>
-<a class="flex items-center gap-1.5 text-xs font-bold text-[#111318] dark:text-white hover:text-primary transition-colors bg-[#f0f2f4] dark:bg-[#2a3447] px-3 py-1.5 rounded-lg hover:bg-primary/10" href="#">
+<a class="flex items-center gap-1.5 text-xs font-bold text-[#111318] dark:text-white hover:text-primary transition-colors bg-[#f0f2f4] dark:bg-[#2a3447] px-3 py-1.5 rounded-lg hover:bg-primary/10" href="https://doi.org/10.1186/s13059-024-03371-y">
 <span class="material-symbols-outlined text-[16px]">link</span>
                                     DOI
                                 </a>
-<a class="flex items-center gap-1.5 text-xs font-bold text-[#111318] dark:text-white hover:text-primary transition-colors bg-[#f0f2f4] dark:bg-[#2a3447] px-3 py-1.5 rounded-lg hover:bg-primary/10" href="#">
-<span class="material-symbols-outlined text-[16px]">code</span>
-                                    Code
-                                </a>
-<button class="flex items-center gap-1.5 text-xs font-bold text-[#616f89] dark:text-gray-400 hover:text-primary transition-colors ml-auto">
-<span class="material-symbols-outlined text-[16px]">format_quote</span>
-                                    BibTeX
-                                </button>
-</div>
-</div>
-</div>
-<div class="group flex flex-col bg-white dark:bg-[#1a2230] p-6 rounded-xl border border-[#dce0e5] dark:border-[#2a3447] shadow-sm hover:shadow-md transition-all">
-<div class="flex flex-col gap-2">
-<div class="flex gap-2 mb-1">
-<span class="inline-flex items-center rounded-md bg-slate-100 dark:bg-slate-800 px-2 py-1 text-xs font-medium text-[#616f89] dark:text-gray-400">Conference Proceeding</span>
-</div>
-<h3 class="text-lg font-bold text-[#111318] dark:text-white leading-snug group-hover:text-primary transition-colors cursor-pointer">
-                                Automated Detection of Crop Diseases using Satellite Imagery in Argentina
-                            </h3>
-<p class="text-sm text-[#616f89] dark:text-gray-400 leading-relaxed">
-                                J. Perez, <span class="font-medium text-[#111318] dark:text-gray-200 underline decoration-primary/30 underline-offset-2">L. Fernandez</span>, and G. Lopez
-                            </p>
-<div class="flex flex-wrap items-center gap-x-4 gap-y-2 mt-1 text-sm text-[#616f89] dark:text-gray-500 italic">
-<span>Proc. of the Int. Conf. on Remote Sensing (ICRS 2024)</span>
-<span class="text-xs text-slate-300">•</span>
-<span>Buenos Aires</span>
-</div>
-<div class="flex flex-wrap gap-3 mt-4 pt-4 border-t border-dashed border-[#f0f2f4] dark:border-[#2a3447]">
-<a class="flex items-center gap-1.5 text-xs font-bold text-[#111318] dark:text-white hover:text-primary transition-colors bg-[#f0f2f4] dark:bg-[#2a3447] px-3 py-1.5 rounded-lg hover:bg-primary/10" href="#">
+<a class="flex items-center gap-1.5 text-xs font-bold text-[#111318] dark:text-white hover:text-primary transition-colors bg-[#f0f2f4] dark:bg-[#2a3447] px-3 py-1.5 rounded-lg hover:bg-primary/10" href="assets/pdf/Paper_seqrutinator.pdf">
 <span class="material-symbols-outlined text-[16px]">picture_as_pdf</span>
                                     PDF
                                 </a>
-<a class="flex items-center gap-1.5 text-xs font-bold text-[#111318] dark:text-white hover:text-primary transition-colors bg-[#f0f2f4] dark:bg-[#2a3447] px-3 py-1.5 rounded-lg hover:bg-primary/10" href="#">
-<span class="material-symbols-outlined text-[16px]">slideshow</span>
-                                    Slides
+</div>
+</div>
+</div>
+<div class="group publication flex flex-col bg-white dark:bg-[#1a2230] p-6 rounded-xl border border-[#dce0e5] dark:border-[#2a3447] shadow-sm hover:shadow-md transition-all" data-year="2024" data-type="journal" data-title="Genome sequencing and analysis of black flounder (Paralichthys orbignyanus) reveals new insights into Pleuronectiformes genomic size and structure" data-authors="F Villarreal, GF Burguener, EJ Sosa, N Stocchi, GM Somoza, AG Turjanski, A Blanco, J Viñas, and AS Mechaly">
+<div class="flex flex-col gap-2">
+<div class="flex gap-2 mb-1">
+<span class="inline-flex items-center rounded-md bg-slate-100 dark:bg-slate-800 px-2 py-1 text-xs font-medium text-[#616f89] dark:text-gray-400" data-en="Journal Article" data-es="Artículo de Revista">Journal Article</span>
+</div>
+<h3 class="text-lg font-bold text-[#111318] dark:text-white leading-snug group-hover:text-primary transition-colors cursor-pointer">
+                                Genome sequencing and analysis of black flounder (<i>Paralichthys orbignyanus</i>) reveals new insights into Pleuronectiformes genomic size and structure
+                            </h3>
+<p class="text-sm text-[#616f89] dark:text-gray-400 leading-relaxed">
+<span class="font-medium text-[#111318] dark:text-gray-200 underline decoration-primary/30 underline-offset-2">F Villarreal</span>, GF Burguener, EJ Sosa, N Stocchi, GM Somoza, AG Turjanski, A Blanco, J Viñas, and AS Mechaly
+</p>
+<div class="flex flex-wrap items-center gap-x-4 gap-y-2 mt-1 text-sm text-[#616f89] dark:text-gray-500 italic">
+<span>BMC Genomics</span>
+</div>
+<div class="flex flex-wrap gap-3 mt-4 pt-4 border-t border-dashed border-[#f0f2f4] dark:border-[#2a3447]">
+<a class="flex items-center gap-1.5 text-xs font-bold text-[#111318] dark:text-white hover:text-primary transition-colors bg-[#f0f2f4] dark:bg-[#2a3447] px-3 py-1.5 rounded-lg hover:bg-primary/10" href="https://doi.org/10.1186/s12864-024-10081-z">
+<span class="material-symbols-outlined text-[16px]">link</span>
+                                    DOI
                                 </a>
-<button class="flex items-center gap-1.5 text-xs font-bold text-[#616f89] dark:text-gray-400 hover:text-primary transition-colors ml-auto">
-<span class="material-symbols-outlined text-[16px]">format_quote</span>
-                                    BibTeX
-                                </button>
+<a class="flex items-center gap-1.5 text-xs font-bold text-[#111318] dark:text-white hover:text-primary transition-colors bg-[#f0f2f4] dark:bg-[#2a3447] px-3 py-1.5 rounded-lg hover:bg-primary/10" href="assets/pdf/paper_lenguado_s12864-024-10081-z.pdf">
+<span class="material-symbols-outlined text-[16px]">picture_as_pdf</span>
+                                    PDF
+                                </a>
+</div>
+</div>
+</div>
+<div class="group publication flex flex-col bg-white dark:bg-[#1a2230] p-6 rounded-xl border border-[#dce0e5] dark:border-[#2a3447] shadow-sm hover:shadow-md transition-all" data-year="2024" data-type="journal" data-title="Arabidopsis thaliana phosphoinositide-specific phospholipase C 2 is required for Botrytis cinerea proliferation" data-authors="L Robuschi, O Mariani, EA Perk, I Cerrudo, F Villarreal, and AM Laxalt">
+<div class="flex flex-col gap-2">
+<div class="flex gap-2 mb-1">
+<span class="inline-flex items-center rounded-md bg-slate-100 dark:bg-slate-800 px-2 py-1 text-xs font-medium text-[#616f89] dark:text-gray-400" data-en="Journal Article" data-es="Artículo de Revista">Journal Article</span>
+</div>
+<h3 class="text-lg font-bold text-[#111318] dark:text-white leading-snug group-hover:text-primary transition-colors cursor-pointer">
+                                <i>Arabidopsis thaliana</i> phosphoinositide-specific phospholipase C 2 is required for <i>Botrytis cinerea</i> proliferation
+                            </h3>
+<p class="text-sm text-[#616f89] dark:text-gray-400 leading-relaxed">
+L Robuschi, O Mariani, EA Perk, I Cerrudo, <span class="font-medium text-[#111318] dark:text-gray-200 underline decoration-primary/30 underline-offset-2">F Villarreal</span>, and AM Laxalt
+</p>
+<div class="flex flex-wrap items-center gap-x-4 gap-y-2 mt-1 text-sm text-[#616f89] dark:text-gray-500 italic">
+<span>Plant Science</span>
+</div>
+<div class="flex flex-wrap gap-3 mt-4 pt-4 border-t border-dashed border-[#f0f2f4] dark:border-[#2a3447]">
+<a class="flex items-center gap-1.5 text-xs font-bold text-[#111318] dark:text-white hover:text-primary transition-colors bg-[#f0f2f4] dark:bg-[#2a3447] px-3 py-1.5 rounded-lg hover:bg-primary/10" href="https://doi.org/10.1016/j.plantsci.2023.111971">
+<span class="material-symbols-outlined text-[16px]">link</span>
+                                    DOI
+                                </a>
+<a class="flex items-center gap-1.5 text-xs font-bold text-[#111318] dark:text-white hover:text-primary transition-colors bg-[#f0f2f4] dark:bg-[#2a3447] px-3 py-1.5 rounded-lg hover:bg-primary/10" href="assets/pdf/Robuschi et al_PlantScience_2023.pdf">
+<span class="material-symbols-outlined text-[16px]">picture_as_pdf</span>
+                                    PDF
+                                </a>
 </div>
 </div>
 </div>
@@ -261,65 +318,313 @@
 <h2 class="text-2xl font-bold text-[#111318] dark:text-white">2023</h2>
 <div class="h-px bg-[#dce0e5] dark:bg-[#2a3447] flex-1"></div>
 </div>
-<div class="group flex flex-col bg-white dark:bg-[#1a2230] p-6 rounded-xl border border-[#dce0e5] dark:border-[#2a3447] shadow-sm hover:shadow-md transition-all">
+<div class="group publication flex flex-col bg-white dark:bg-[#1a2230] p-6 rounded-xl border border-[#dce0e5] dark:border-[#2a3447] shadow-sm hover:shadow-md transition-all" data-year="2023" data-type="journal" data-title="CRISPR/Cas9-mediated phospholipase C 2 knock-out tomato plants are more resistant to Botrytis cinerea" data-authors="EA Perk, A Arruebarrena Di Palma, S Colman, O Mariani, I Cerrudo, JM D’Ambrosio, L Robuschi, MA Pombo, HG Rosli, F Villarreal, and AM Laxalt">
 <div class="flex flex-col gap-2">
 <div class="flex gap-2 mb-1">
-<span class="inline-flex items-center rounded-md bg-slate-100 dark:bg-slate-800 px-2 py-1 text-xs font-medium text-[#616f89] dark:text-gray-400">Journal Article</span>
+<span class="inline-flex items-center rounded-md bg-slate-100 dark:bg-slate-800 px-2 py-1 text-xs font-medium text-[#616f89] dark:text-gray-400" data-en="Journal Article" data-es="Artículo de Revista">Journal Article</span>
 </div>
 <h3 class="text-lg font-bold text-[#111318] dark:text-white leading-snug group-hover:text-primary transition-colors cursor-pointer">
-                                Quantum entanglement in multi-particle systems: A review
+                                CRISPR/Cas9-mediated phospholipase C 2 knock-out tomato plants are more resistant to <i>Botrytis cinerea</i>
                             </h3>
 <p class="text-sm text-[#616f89] dark:text-gray-400 leading-relaxed">
-<span class="font-medium text-[#111318] dark:text-gray-200 underline decoration-primary/30 underline-offset-2">M. Rodriguez</span>, and T. Sato
-                            </p>
+EA Perk, A Arruebarrena Di Palma, S Colman, O Mariani, I Cerrudo, JM D’Ambrosio, L Robuschi, MA Pombo, HG Rosli, <span class="font-medium text-[#111318] dark:text-gray-200 underline decoration-primary/30 underline-offset-2">F Villarreal</span>, and AM Laxalt
+</p>
 <div class="flex flex-wrap items-center gap-x-4 gap-y-2 mt-1 text-sm text-[#616f89] dark:text-gray-500 italic">
-<span>Reviews of Modern Physics</span>
-<span class="text-xs text-slate-300">•</span>
-<span>Vol. 95, Issue 2</span>
+<span>Planta</span>
 </div>
 <div class="flex flex-wrap gap-3 mt-4 pt-4 border-t border-dashed border-[#f0f2f4] dark:border-[#2a3447]">
-<a class="flex items-center gap-1.5 text-xs font-bold text-[#111318] dark:text-white hover:text-primary transition-colors bg-[#f0f2f4] dark:bg-[#2a3447] px-3 py-1.5 rounded-lg hover:bg-primary/10" href="#">
-<span class="material-symbols-outlined text-[16px]">picture_as_pdf</span>
-                                    PDF
-                                </a>
-<a class="flex items-center gap-1.5 text-xs font-bold text-[#111318] dark:text-white hover:text-primary transition-colors bg-[#f0f2f4] dark:bg-[#2a3447] px-3 py-1.5 rounded-lg hover:bg-primary/10" href="#">
+<a class="flex items-center gap-1.5 text-xs font-bold text-[#111318] dark:text-white hover:text-primary transition-colors bg-[#f0f2f4] dark:bg-[#2a3447] px-3 py-1.5 rounded-lg hover:bg-primary/10" href="https://doi.org/10.1007/S00425-023-04147-7">
 <span class="material-symbols-outlined text-[16px]">link</span>
                                     DOI
                                 </a>
-<button class="flex items-center gap-1.5 text-xs font-bold text-[#616f89] dark:text-gray-400 hover:text-primary transition-colors ml-auto">
-<span class="material-symbols-outlined text-[16px]">format_quote</span>
-                                    BibTeX
-                                </button>
+<a class="flex items-center gap-1.5 text-xs font-bold text-[#111318] dark:text-white hover:text-primary transition-colors bg-[#f0f2f4] dark:bg-[#2a3447] px-3 py-1.5 rounded-lg hover:bg-primary/10" href="assets/pdf/PLC-CRISPR.pdf">
+<span class="material-symbols-outlined text-[16px]">picture_as_pdf</span>
+                                    PDF
+                                </a>
 </div>
 </div>
 </div>
-<div class="group flex flex-col bg-white dark:bg-[#1a2230] p-6 rounded-xl border border-[#dce0e5] dark:border-[#2a3447] shadow-sm hover:shadow-md transition-all">
+<div class="group publication flex flex-col bg-white dark:bg-[#1a2230] p-6 rounded-xl border border-[#dce0e5] dark:border-[#2a3447] shadow-sm hover:shadow-md transition-all" data-year="2023" data-type="preprint" data-title="Comprehensive characterization of the complex BAHD acyltransferase family from 218 land plants species: phylogenomic analysis and identification of specificity determinant positions" data-authors="F Villarreal, A Amalfitano, HM Atencio, N Stocchi, and A ten Have">
 <div class="flex flex-col gap-2">
 <div class="flex gap-2 mb-1">
 <span class="inline-flex items-center rounded-md bg-slate-100 dark:bg-slate-800 px-2 py-1 text-xs font-medium text-[#616f89] dark:text-gray-400">Preprint</span>
 </div>
 <h3 class="text-lg font-bold text-[#111318] dark:text-white leading-snug group-hover:text-primary transition-colors cursor-pointer">
-                                Scalable Algorithms for Large Graph Processing
+                                Comprehensive characterization of the complex BAHD acyltransferase family from 218 land plants species: phylogenomic analysis and identification of specificity determinant positions
                             </h3>
 <p class="text-sm text-[#616f89] dark:text-gray-400 leading-relaxed">
-                                A. Smith, <span class="font-medium text-[#111318] dark:text-gray-200 underline decoration-primary/30 underline-offset-2">L. Fernandez</span>
+<span class="font-medium text-[#111318] dark:text-gray-200 underline decoration-primary/30 underline-offset-2">F Villarreal</span>, A Amalfitano, HM Atencio, N Stocchi, and <span class="font-medium text-[#111318] dark:text-gray-200 underline decoration-primary/30 underline-offset-2">A ten Have</span>
 </p>
 <div class="flex flex-wrap items-center gap-x-4 gap-y-2 mt-1 text-sm text-[#616f89] dark:text-gray-500 italic">
-<span>arXiv preprint arXiv:2305.11234</span>
+<span>bioRxiv</span>
 </div>
 <div class="flex flex-wrap gap-3 mt-4 pt-4 border-t border-dashed border-[#f0f2f4] dark:border-[#2a3447]">
-<a class="flex items-center gap-1.5 text-xs font-bold text-[#111318] dark:text-white hover:text-primary transition-colors bg-[#f0f2f4] dark:bg-[#2a3447] px-3 py-1.5 rounded-lg hover:bg-primary/10" href="#">
+<a class="flex items-center gap-1.5 text-xs font-bold text-[#111318] dark:text-white hover:text-primary transition-colors bg-[#f0f2f4] dark:bg-[#2a3447] px-3 py-1.5 rounded-lg hover:bg-primary/10" href="https://doi.org/10.1101/2023.03.15.532435">
+<span class="material-symbols-outlined text-[16px]">link</span>
+                                    DOI
+                                </a>
+<a class="flex items-center gap-1.5 text-xs font-bold text-[#111318] dark:text-white hover:text-primary transition-colors bg-[#f0f2f4] dark:bg-[#2a3447] px-3 py-1.5 rounded-lg hover:bg-primary/10" href="assets/pdf/2023.03.15.532435v1.full.pdf">
 <span class="material-symbols-outlined text-[16px]">picture_as_pdf</span>
                                     PDF
                                 </a>
-<a class="flex items-center gap-1.5 text-xs font-bold text-[#111318] dark:text-white hover:text-primary transition-colors bg-[#f0f2f4] dark:bg-[#2a3447] px-3 py-1.5 rounded-lg hover:bg-primary/10" href="#">
-<span class="material-symbols-outlined text-[16px]">code</span>
-                                    Repository
+</div>
+</div>
+</div>
+<div class="flex items-center gap-4 py-2 mt-4">
+<h2 class="text-2xl font-bold text-[#111318] dark:text-white">2022</h2>
+<div class="h-px bg-[#dce0e5] dark:bg-[#2a3447] flex-1"></div>
+</div>
+<div class="group publication flex flex-col bg-white dark:bg-[#1a2230] p-6 rounded-xl border border-[#dce0e5] dark:border-[#2a3447] shadow-sm hover:shadow-md transition-all" data-year="2022" data-type="journal" data-title="Functional Classification and Characterization of the Fungal Glycoside Hydrolase 28 Protein Family" data-authors="F Villarreal, N Stocchi, and A ten Have">
+<div class="flex flex-col gap-2">
+<div class="flex gap-2 mb-1">
+<span class="inline-flex items-center rounded-md bg-slate-100 dark:bg-slate-800 px-2 py-1 text-xs font-medium text-[#616f89] dark:text-gray-400" data-en="Journal Article" data-es="Artículo de Revista">Journal Article</span>
+</div>
+<h3 class="text-lg font-bold text-[#111318] dark:text-white leading-snug group-hover:text-primary transition-colors cursor-pointer">
+                                Functional Classification and Characterization of the Fungal Glycoside Hydrolase 28 Protein Family
+                            </h3>
+<p class="text-sm text-[#616f89] dark:text-gray-400 leading-relaxed">
+<span class="font-medium text-[#111318] dark:text-gray-200 underline decoration-primary/30 underline-offset-2">F Villarreal</span>, N Stocchi, and <span class="font-medium text-[#111318] dark:text-gray-200 underline decoration-primary/30 underline-offset-2">A ten Have</span>
+</p>
+<div class="flex flex-wrap items-center gap-x-4 gap-y-2 mt-1 text-sm text-[#616f89] dark:text-gray-500 italic">
+<span>Journal of Fungi</span>
+</div>
+<div class="flex flex-wrap gap-3 mt-4 pt-4 border-t border-dashed border-[#f0f2f4] dark:border-[#2a3447]">
+<a class="flex items-center gap-1.5 text-xs font-bold text-[#111318] dark:text-white hover:text-primary transition-colors bg-[#f0f2f4] dark:bg-[#2a3447] px-3 py-1.5 rounded-lg hover:bg-primary/10" href="https://doi.org/10.3390/jof8030217">
+<span class="material-symbols-outlined text-[16px]">link</span>
+                                    DOI
                                 </a>
-<button class="flex items-center gap-1.5 text-xs font-bold text-[#616f89] dark:text-gray-400 hover:text-primary transition-colors ml-auto">
-<span class="material-symbols-outlined text-[16px]">format_quote</span>
-                                    BibTeX
-                                </button>
+<a class="flex items-center gap-1.5 text-xs font-bold text-[#111318] dark:text-white hover:text-primary transition-colors bg-[#f0f2f4] dark:bg-[#2a3447] px-3 py-1.5 rounded-lg hover:bg-primary/10" href="assets/pdf/Paper_GH28.pdf">
+<span class="material-symbols-outlined text-[16px]">picture_as_pdf</span>
+                                    PDF
+                                </a>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-4 py-2 mt-4">
+<h2 class="text-2xl font-bold text-[#111318] dark:text-white">2021</h2>
+<div class="h-px bg-[#dce0e5] dark:bg-[#2a3447] flex-1"></div>
+</div>
+<div class="group publication flex flex-col bg-white dark:bg-[#1a2230] p-6 rounded-xl border border-[#dce0e5] dark:border-[#2a3447] shadow-sm hover:shadow-md transition-all" data-year="2021" data-type="preprint" data-title="Identification of the functions of 4-coumarate-CoA ligase/ acyl-CoA synthetase paralogs in potato" data-authors="MA Valiñas, A ten Have, and AB Andreu">
+<div class="flex flex-col gap-2">
+<div class="flex gap-2 mb-1">
+<span class="inline-flex items-center rounded-md bg-slate-100 dark:bg-slate-800 px-2 py-1 text-xs font-medium text-[#616f89] dark:text-gray-400">Preprint</span>
+</div>
+<h3 class="text-lg font-bold text-[#111318] dark:text-white leading-snug group-hover:text-primary transition-colors cursor-pointer">
+                                Identification of the functions of 4-coumarate-CoA ligase/ acyl-CoA synthetase paralogs in potato
+                            </h3>
+<p class="text-sm text-[#616f89] dark:text-gray-400 leading-relaxed">
+MA Valiñas, <span class="font-medium text-[#111318] dark:text-gray-200 underline decoration-primary/30 underline-offset-2">A ten Have</span>, and AB Andreu
+</p>
+<div class="flex flex-wrap items-center gap-x-4 gap-y-2 mt-1 text-sm text-[#616f89] dark:text-gray-500 italic">
+<span>bioRxiv</span>
+</div>
+<div class="flex flex-wrap gap-3 mt-4 pt-4 border-t border-dashed border-[#f0f2f4] dark:border-[#2a3447]">
+<a class="flex items-center gap-1.5 text-xs font-bold text-[#111318] dark:text-white hover:text-primary transition-colors bg-[#f0f2f4] dark:bg-[#2a3447] px-3 py-1.5 rounded-lg hover:bg-primary/10" href="https://doi.org/10.1101/2021.07.06.451337">
+<span class="material-symbols-outlined text-[16px]">link</span>
+                                    DOI
+                                </a>
+<a class="flex items-center gap-1.5 text-xs font-bold text-[#111318] dark:text-white hover:text-primary transition-colors bg-[#f0f2f4] dark:bg-[#2a3447] px-3 py-1.5 rounded-lg hover:bg-primary/10" href="assets/pdf/2021.07.06.451337v1.full.pdf">
+<span class="material-symbols-outlined text-[16px]">picture_as_pdf</span>
+                                    PDF
+                                </a>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-4 py-2 mt-4">
+<h2 class="text-2xl font-bold text-[#111318] dark:text-white">2018</h2>
+<div class="h-px bg-[#dce0e5] dark:bg-[#2a3447] flex-1"></div>
+</div>
+<div class="group publication flex flex-col bg-white dark:bg-[#1a2230] p-6 rounded-xl border border-[#dce0e5] dark:border-[#2a3447] shadow-sm hover:shadow-md transition-all" data-year="2018" data-type="journal" data-title="Structure-function analysis of Sedolisins: Evolution of tripeptidyl peptidase and endopeptidase subfamilies in fungi" data-authors="F Orts and A ten Have">
+<div class="flex flex-col gap-2">
+<div class="flex gap-2 mb-1">
+<span class="inline-flex items-center rounded-md bg-slate-100 dark:bg-slate-800 px-2 py-1 text-xs font-medium text-[#616f89] dark:text-gray-400" data-en="Journal Article" data-es="Artículo de Revista">Journal Article</span>
+</div>
+<h3 class="text-lg font-bold text-[#111318] dark:text-white leading-snug group-hover:text-primary transition-colors cursor-pointer">
+                                Structure-function analysis of Sedolisins: Evolution of tripeptidyl peptidase and endopeptidase subfamilies in fungi
+                            </h3>
+<p class="text-sm text-[#616f89] dark:text-gray-400 leading-relaxed">
+F Orts and <span class="font-medium text-[#111318] dark:text-gray-200 underline decoration-primary/30 underline-offset-2">A ten Have</span>
+</p>
+<div class="flex flex-wrap items-center gap-x-4 gap-y-2 mt-1 text-sm text-[#616f89] dark:text-gray-500 italic">
+<span>BMC Bioinformatics</span>
+</div>
+<div class="flex flex-wrap gap-3 mt-4 pt-4 border-t border-dashed border-[#f0f2f4] dark:border-[#2a3447]">
+<a class="flex items-center gap-1.5 text-xs font-bold text-[#111318] dark:text-white hover:text-primary transition-colors bg-[#f0f2f4] dark:bg-[#2a3447] px-3 py-1.5 rounded-lg hover:bg-primary/10" href="https://doi.org/10.1186/s12859-018-2404-y">
+<span class="material-symbols-outlined text-[16px]">link</span>
+                                    DOI
+                                </a>
+<a class="flex items-center gap-1.5 text-xs font-bold text-[#111318] dark:text-white hover:text-primary transition-colors bg-[#f0f2f4] dark:bg-[#2a3447] px-3 py-1.5 rounded-lg hover:bg-primary/10" href="assets/pdf/Paper_sedolisins.pdf">
+<span class="material-symbols-outlined text-[16px]">picture_as_pdf</span>
+                                    PDF
+                                </a>
+</div>
+</div>
+</div>
+<div class="group publication flex flex-col bg-white dark:bg-[#1a2230] p-6 rounded-xl border border-[#dce0e5] dark:border-[#2a3447] shadow-sm hover:shadow-md transition-all" data-year="2018" data-type="journal" data-title="Molecular dynamics and structure function analysis show that substrate binding and specificity are major forces in the functional diversification of Eqolisins" data-authors="N Stocchi, MV Revuelta, PAL Castronuovo, DMA Vera, and A ten Have">
+<div class="flex flex-col gap-2">
+<div class="flex gap-2 mb-1">
+<span class="inline-flex items-center rounded-md bg-slate-100 dark:bg-slate-800 px-2 py-1 text-xs font-medium text-[#616f89] dark:text-gray-400" data-en="Journal Article" data-es="Artículo de Revista">Journal Article</span>
+</div>
+<h3 class="text-lg font-bold text-[#111318] dark:text-white leading-snug group-hover:text-primary transition-colors cursor-pointer">
+                                Molecular dynamics and structure function analysis show that substrate binding and specificity are major forces in the functional diversification of Eqolisins
+                            </h3>
+<p class="text-sm text-[#616f89] dark:text-gray-400 leading-relaxed">
+N Stocchi, MV Revuelta, PAL Castronuovo, DMA Vera, and <span class="font-medium text-[#111318] dark:text-gray-200 underline decoration-primary/30 underline-offset-2">A ten Have</span>
+</p>
+<div class="flex flex-wrap items-center gap-x-4 gap-y-2 mt-1 text-sm text-[#616f89] dark:text-gray-500 italic">
+<span>BMC Bioinformatics</span>
+</div>
+<div class="flex flex-wrap gap-3 mt-4 pt-4 border-t border-dashed border-[#f0f2f4] dark:border-[#2a3447]">
+<a class="flex items-center gap-1.5 text-xs font-bold text-[#111318] dark:text-white hover:text-primary transition-colors bg-[#f0f2f4] dark:bg-[#2a3447] px-3 py-1.5 rounded-lg hover:bg-primary/10" href="https://doi.org/10.1186/s12859-018-2348-2">
+<span class="material-symbols-outlined text-[16px]">link</span>
+                                    DOI
+                                </a>
+<a class="flex items-center gap-1.5 text-xs font-bold text-[#111318] dark:text-white hover:text-primary transition-colors bg-[#f0f2f4] dark:bg-[#2a3447] px-3 py-1.5 rounded-lg hover:bg-primary/10" href="assets/pdf/Paper_eqolisins.pdf">
+<span class="material-symbols-outlined text-[16px]">picture_as_pdf</span>
+                                    PDF
+                                </a>
+</div>
+</div>
+</div>
+<div class="group publication flex flex-col bg-white dark:bg-[#1a2230] p-6 rounded-xl border border-[#dce0e5] dark:border-[#2a3447] shadow-sm hover:shadow-md transition-all" data-year="2018" data-type="journal" data-title="HMMER cut-off threshold tool (HMMERCTTER): Supervised classification of superfamily protein sequences with a reliable cut-off threshold" data-authors="IA Pagnuco, MV Revuelta, HG Bondino, M Brun, and A ten Have">
+<div class="flex flex-col gap-2">
+<div class="flex gap-2 mb-1">
+<span class="inline-flex items-center rounded-md bg-slate-100 dark:bg-slate-800 px-2 py-1 text-xs font-medium text-[#616f89] dark:text-gray-400" data-en="Journal Article" data-es="Artículo de Revista">Journal Article</span>
+</div>
+<h3 class="text-lg font-bold text-[#111318] dark:text-white leading-snug group-hover:text-primary transition-colors cursor-pointer">
+                                HMMER cut-off threshold tool (HMMERCTTER): Supervised classification of superfamily protein sequences with a reliable cut-off threshold
+                            </h3>
+<p class="text-sm text-[#616f89] dark:text-gray-400 leading-relaxed">
+IA Pagnuco, MV Revuelta, HG Bondino, M Brun, and <span class="font-medium text-[#111318] dark:text-gray-200 underline decoration-primary/30 underline-offset-2">A ten Have</span>
+</p>
+<div class="flex flex-wrap items-center gap-x-4 gap-y-2 mt-1 text-sm text-[#616f89] dark:text-gray-500 italic">
+<span>PLoS ONE</span>
+</div>
+<div class="flex flex-wrap gap-3 mt-4 pt-4 border-t border-dashed border-[#f0f2f4] dark:border-[#2a3447]">
+<a class="flex items-center gap-1.5 text-xs font-bold text-[#111318] dark:text-white hover:text-primary transition-colors bg-[#f0f2f4] dark:bg-[#2a3447] px-3 py-1.5 rounded-lg hover:bg-primary/10" href="https://doi.org/10.1371/journal.pone.0193757">
+<span class="material-symbols-outlined text-[16px]">link</span>
+                                    DOI
+                                </a>
+<a class="flex items-center gap-1.5 text-xs font-bold text-[#111318] dark:text-white hover:text-primary transition-colors bg-[#f0f2f4] dark:bg-[#2a3447] px-3 py-1.5 rounded-lg hover:bg-primary/10" href="assets/pdf/Paper_hmmctter.pdf">
+<span class="material-symbols-outlined text-[16px]">picture_as_pdf</span>
+                                    PDF
+                                </a>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-4 py-2 mt-4">
+<h2 class="text-2xl font-bold text-[#111318] dark:text-white">2017</h2>
+<div class="h-px bg-[#dce0e5] dark:bg-[#2a3447] flex-1"></div>
+</div>
+<div class="group publication flex flex-col bg-white dark:bg-[#1a2230] p-6 rounded-xl border border-[#dce0e5] dark:border-[#2a3447] shadow-sm hover:shadow-md transition-all" data-year="2017" data-type="journal" data-title="Chlorogenic acid, anthocyanin and flavan-3-ol biosynthesis in flesh and skin of Andean potato tubers (Solanum tuberosum subsp. andigena)" data-authors="MA Valiñas, ML Lanteri, A ten Have, and AB Andreu">
+<div class="flex flex-col gap-2">
+<div class="flex gap-2 mb-1">
+<span class="inline-flex items-center rounded-md bg-slate-100 dark:bg-slate-800 px-2 py-1 text-xs font-medium text-[#616f89] dark:text-gray-400" data-en="Journal Article" data-es="Artículo de Revista">Journal Article</span>
+</div>
+<h3 class="text-lg font-bold text-[#111318] dark:text-white leading-snug group-hover:text-primary transition-colors cursor-pointer">
+                                Chlorogenic acid, anthocyanin and flavan-3-ol biosynthesis in flesh and skin of Andean potato tubers (<i>Solanum tuberosum subsp. andigena</i>)
+                            </h3>
+<p class="text-sm text-[#616f89] dark:text-gray-400 leading-relaxed">
+MA Valiñas, ML Lanteri, <span class="font-medium text-[#111318] dark:text-gray-200 underline decoration-primary/30 underline-offset-2">A ten Have</span>, and AB Andreu
+</p>
+<div class="flex flex-wrap items-center gap-x-4 gap-y-2 mt-1 text-sm text-[#616f89] dark:text-gray-500 italic">
+<span>Food Chemistry</span>
+</div>
+<div class="flex flex-wrap gap-3 mt-4 pt-4 border-t border-dashed border-[#f0f2f4] dark:border-[#2a3447]">
+<a class="flex items-center gap-1.5 text-xs font-bold text-[#111318] dark:text-white hover:text-primary transition-colors bg-[#f0f2f4] dark:bg-[#2a3447] px-3 py-1.5 rounded-lg hover:bg-primary/10" href="https://doi.org/10.1016/j.foodchem.2017.02.150">
+<span class="material-symbols-outlined text-[16px]">link</span>
+                                    DOI
+                                </a>
+<a class="flex items-center gap-1.5 text-xs font-bold text-[#111318] dark:text-white hover:text-primary transition-colors bg-[#f0f2f4] dark:bg-[#2a3447] px-3 py-1.5 rounded-lg hover:bg-primary/10" href="assets/pdf/Valiñas et al-2017-Food Chem.pdf">
+<span class="material-symbols-outlined text-[16px]">picture_as_pdf</span>
+                                    PDF
+                                </a>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-4 py-2 mt-4">
+<h2 class="text-2xl font-bold text-[#111318] dark:text-white">2015</h2>
+<div class="h-px bg-[#dce0e5] dark:bg-[#2a3447] flex-1"></div>
+</div>
+<div class="group publication flex flex-col bg-white dark:bg-[#1a2230] p-6 rounded-xl border border-[#dce0e5] dark:border-[#2a3447] shadow-sm hover:shadow-md transition-all" data-year="2015" data-type="journal" data-title="Chlorogenic Acid Biosynthesis Appears Linked with Suberin Production in Potato Tuber (Solanum tuberosum)" data-authors="MA Valiñas, ML Lanteri, A Ten Have, and AB Andreu">
+<div class="flex flex-col gap-2">
+<div class="flex gap-2 mb-1">
+<span class="inline-flex items-center rounded-md bg-slate-100 dark:bg-slate-800 px-2 py-1 text-xs font-medium text-[#616f89] dark:text-gray-400" data-en="Journal Article" data-es="Artículo de Revista">Journal Article</span>
+</div>
+<h3 class="text-lg font-bold text-[#111318] dark:text-white leading-snug group-hover:text-primary transition-colors cursor-pointer">
+                                Chlorogenic Acid Biosynthesis Appears Linked with Suberin Production in Potato Tuber (<i>Solanum tuberosum</i>)
+                            </h3>
+<p class="text-sm text-[#616f89] dark:text-gray-400 leading-relaxed">
+MA Valiñas, ML Lanteri, <span class="font-medium text-[#111318] dark:text-gray-200 underline decoration-primary/30 underline-offset-2">A Ten Have</span>, and AB Andreu
+</p>
+<div class="flex flex-wrap items-center gap-x-4 gap-y-2 mt-1 text-sm text-[#616f89] dark:text-gray-500 italic">
+<span>Journal of Agricultural and Food Chemistry</span>
+</div>
+<div class="flex flex-wrap gap-3 mt-4 pt-4 border-t border-dashed border-[#f0f2f4] dark:border-[#2a3447]">
+<a class="flex items-center gap-1.5 text-xs font-bold text-[#111318] dark:text-white hover:text-primary transition-colors bg-[#f0f2f4] dark:bg-[#2a3447] px-3 py-1.5 rounded-lg hover:bg-primary/10" href="https://doi.org/10.1021/jf505777p">
+<span class="material-symbols-outlined text-[16px]">link</span>
+                                    DOI
+                                </a>
+<a class="flex items-center gap-1.5 text-xs font-bold text-[#111318] dark:text-white hover:text-primary transition-colors bg-[#f0f2f4] dark:bg-[#2a3447] px-3 py-1.5 rounded-lg hover:bg-primary/10" href="assets/pdf/Valiñas et al-2015-J Agr Food Chem.pdf">
+<span class="material-symbols-outlined text-[16px]">picture_as_pdf</span>
+                                    PDF
+                                </a>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-4 py-2 mt-4">
+<h2 class="text-2xl font-bold text-[#111318] dark:text-white">2014</h2>
+<div class="h-px bg-[#dce0e5] dark:bg-[#2a3447] flex-1"></div>
+</div>
+<div class="group publication flex flex-col bg-white dark:bg-[#1a2230] p-6 rounded-xl border border-[#dce0e5] dark:border-[#2a3447] shadow-sm hover:shadow-md transition-all" data-year="2014" data-type="journal" data-title="Extensive Expansion of A1 Family Aspartic Proteinases in Fungi Revealed by Evolutionary Analyses of 107 Complete Eukaryotic Proteomes" data-authors="MV Revuelta, JAL van Kan, J Kay, and A ten Have">
+<div class="flex flex-col gap-2">
+<div class="flex gap-2 mb-1">
+<span class="inline-flex items-center rounded-md bg-slate-100 dark:bg-slate-800 px-2 py-1 text-xs font-medium text-[#616f89] dark:text-gray-400" data-en="Journal Article" data-es="Artículo de Revista">Journal Article</span>
+</div>
+<h3 class="text-lg font-bold text-[#111318] dark:text-white leading-snug group-hover:text-primary transition-colors cursor-pointer">
+                                Extensive Expansion of A1 Family Aspartic Proteinases in Fungi Revealed by Evolutionary Analyses of 107 Complete Eukaryotic Proteomes
+                            </h3>
+<p class="text-sm text-[#616f89] dark:text-gray-400 leading-relaxed">
+MV Revuelta, JAL van Kan, J Kay, and <span class="font-medium text-[#111318] dark:text-gray-200 underline decoration-primary/30 underline-offset-2">A ten Have</span>
+</p>
+<div class="flex flex-wrap items-center gap-x-4 gap-y-2 mt-1 text-sm text-[#616f89] dark:text-gray-500 italic">
+<span>Genome Biology and Evolution</span>
+</div>
+<div class="flex flex-wrap gap-3 mt-4 pt-4 border-t border-dashed border-[#f0f2f4] dark:border-[#2a3447]">
+<a class="flex items-center gap-1.5 text-xs font-bold text-[#111318] dark:text-white hover:text-primary transition-colors bg-[#f0f2f4] dark:bg-[#2a3447] px-3 py-1.5 rounded-lg hover:bg-primary/10" href="https://doi.org/10.1093/gbe/evu110">
+<span class="material-symbols-outlined text-[16px]">link</span>
+                                    DOI
+                                </a>
+<a class="flex items-center gap-1.5 text-xs font-bold text-[#111318] dark:text-white hover:text-primary transition-colors bg-[#f0f2f4] dark:bg-[#2a3447] px-3 py-1.5 rounded-lg hover:bg-primary/10" href="assets/pdf/evu110.pdf">
+<span class="material-symbols-outlined text-[16px]">picture_as_pdf</span>
+                                    PDF
+                                </a>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-4 py-2 mt-4">
+<h2 class="text-2xl font-bold text-[#111318] dark:text-white">2012</h2>
+<div class="h-px bg-[#dce0e5] dark:bg-[#2a3447] flex-1"></div>
+</div>
+<div class="group publication flex flex-col bg-white dark:bg-[#1a2230] p-6 rounded-xl border border-[#dce0e5] dark:border-[#2a3447] shadow-sm hover:shadow-md transition-all" data-year="2012" data-type="journal" data-title="Evolution and functional diversification of the small heat shock protein/α-crystallin family in higher plants" data-authors="HG Bondino, EM Valle, and A ten Have">
+<div class="flex flex-col gap-2">
+<div class="flex gap-2 mb-1">
+<span class="inline-flex items-center rounded-md bg-slate-100 dark:bg-slate-800 px-2 py-1 text-xs font-medium text-[#616f89] dark:text-gray-400" data-en="Journal Article" data-es="Artículo de Revista">Journal Article</span>
+</div>
+<h3 class="text-lg font-bold text-[#111318] dark:text-white leading-snug group-hover:text-primary transition-colors cursor-pointer">
+                                Evolution and functional diversification of the small heat shock protein/α-crystallin family in higher plants
+                            </h3>
+<p class="text-sm text-[#616f89] dark:text-gray-400 leading-relaxed">
+HG Bondino, EM Valle, and <span class="font-medium text-[#111318] dark:text-gray-200 underline decoration-primary/30 underline-offset-2">A ten Have</span>
+</p>
+<div class="flex flex-wrap items-center gap-x-4 gap-y-2 mt-1 text-sm text-[#616f89] dark:text-gray-500 italic">
+<span>Planta</span>
+</div>
+<div class="flex flex-wrap gap-3 mt-4 pt-4 border-t border-dashed border-[#f0f2f4] dark:border-[#2a3447]">
+<a class="flex items-center gap-1.5 text-xs font-bold text-[#111318] dark:text-white hover:text-primary transition-colors bg-[#f0f2f4] dark:bg-[#2a3447] px-3 py-1.5 rounded-lg hover:bg-primary/10" href="https://doi.org/10.1007/s00425-011-1575-9">
+<span class="material-symbols-outlined text-[16px]">link</span>
+                                    DOI
+                                </a>
 </div>
 </div>
 </div>
@@ -343,7 +648,7 @@
 </main>
 <footer class="bg-white dark:bg-[#111318] border-t border-gray-200 dark:border-[#222] py-12">
 <div class="max-w-[1200px] mx-auto px-4 md:px-8">
-<div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+<div class="grid grid-cols-1 md:grid-cols-5 gap-12 mb-12">
 <div class="col-span-1 md:col-span-2">
 <div class="flex items-center gap-2 mb-4">
 <span class="material-symbols-outlined text-primary">science</span>
@@ -384,6 +689,10 @@
 </li>
 </ul>
 </div>
+<div>
+<h4 class="font-bold text-sm mb-4" data-en="Our motto" data-es="Nuestro lema">Our motto</h4>
+<img src="assets/images/nico.jpg" alt="Our motto" class="w-3/4 h-auto rounded-lg mx-auto"/>
+</div>
 </div>
 <div class="border-t border-gray-100 dark:border-[#222] pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-gray-400">
 <p data-en="© 2026 BBC Research Group. All rights reserved." data-es="© 2026 Grupo de Investigación BBC. Todos los derechos reservados.">© 2026 BBC Research Group. All rights reserved.</p>
@@ -396,6 +705,44 @@
 </footer>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.querySelector('input[placeholder="Search by title, author, or keyword..."]');
+    const yearCheckboxes = document.querySelectorAll('input[name="year"]');
+    const typeCheckboxes = document.querySelectorAll('input[name="type"]');
+
+    function filterPublications() {
+        const searchTerm = searchInput.value.toLowerCase();
+        const selectedYears = Array.from(yearCheckboxes).filter(cb => cb.checked).map(cb => cb.value);
+        const selectedTypes = Array.from(typeCheckboxes).filter(cb => cb.checked).map(cb => cb.value);
+
+        const publications = document.querySelectorAll('.publication');
+
+        publications.forEach(pub => {
+            const title = pub.dataset.title.toLowerCase();
+            const authors = pub.dataset.authors.toLowerCase();
+            const year = pub.dataset.year;
+            const type = pub.dataset.type;
+
+            const matchesSearch = !searchTerm || title.includes(searchTerm) || authors.includes(searchTerm);
+            const matchesYear = selectedYears.length === 0 || selectedYears.includes(year);
+            const matchesType = selectedTypes.length === 0 || selectedTypes.includes(type);
+
+            pub.style.display = matchesSearch && matchesYear && matchesType ? 'block' : 'none';
+        });
+
+        // Hide year headers if no pubs
+        const yearHeaders = document.querySelectorAll('h2');
+        yearHeaders.forEach(header => {
+            const year = header.textContent.trim();
+            const pubsInYear = document.querySelectorAll(`.publication[data-year="${year}"]`);
+            const visiblePubs = Array.from(pubsInYear).filter(pub => pub.style.display !== 'none');
+            header.parentElement.style.display = visiblePubs.length > 0 ? 'block' : 'none';
+        });
+    }
+
+    searchInput.addEventListener('input', filterPublications);
+    yearCheckboxes.forEach(cb => cb.addEventListener('change', filterPublications));
+    typeCheckboxes.forEach(cb => cb.addEventListener('change', filterPublications));
+
     // Get saved language or default to English
     const currentLang = localStorage.getItem('language') || 'en';
     
@@ -412,7 +759,10 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     function setLanguage(lang) {
-        document.querySelectorAll('[data-' + lang + ']').forEach(element => {
+        document.querySelectorAll('input[data-' + lang + ']').forEach(input => {
+            input.placeholder = input.getAttribute('data-' + lang);
+        });
+        document.querySelectorAll('[data-' + lang + ']:not(input)').forEach(element => {
             element.innerHTML = element.getAttribute('data-' + lang);
         });
 
