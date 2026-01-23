@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>BBC Proteomes Database - Browse & Export</title>
+<link rel="icon" type="image/x-icon" href="assets/images/BBC_solo.png"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+    tailwind.config = {
+        darkMode: "class",
+        theme: {
+            extend: {
+                colors: {
+                    "primary": "#1152d4",
+                    "background-light": "#f6f6f8",
+                    "background-dark": "#101622",
+                },
+                fontFamily: {
+                    "display": ["Inter", "sans-serif"]
+                },
+                borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+            },
+        },
+    }
+</script>
+<style>
+    html { scroll-behavior: smooth; }
+    .loader { border: 3px solid #f3f3f3; border-top: 3px solid #1152d4; border-radius: 50%; width: 30px; height: 30px; animation: spin 1s linear infinite; }
+    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+</style>
+</head>
+<link rel="stylesheet" href="assets/css/main.css">
+<script src="assets/config.js"></script>
+<body class="bg-background-light dark:bg-background-dark text-[#111318] dark:text-white font-display flex flex-col min-h-screen">
+<header class="bg-white dark:bg-[#111318] border-b border-[#f0f2f4] dark:border-[#222] sticky top-0 z-50">
+<div class="max-w-[1400px] mx-auto px-4 md:px-8 py-3 flex items-center justify-between flex-wrap gap-4">
+<div class="flex items-center gap-3">
+<div class="text-primary size-16 flex items-center justify-center">
+<img src="assets/images/BBC_solo.png" alt="BBC Logo" class="h-18 w-18 object-contain"/>
+</div>
+<div>
+<h2 class="text-lg font-bold leading-tight tracking-[-0.015em]">BBC Proteomes Database</h2>
+<p class="text-xs text-gray-500 dark:text-gray-400 font-medium">Browse & Export Complete Proteomes</p>
+</div>
+</div>
+<nav class="hidden md:flex flex-1 justify-end items-center gap-6 lg:gap-8">
+<a class="text-sm font-medium hover:text-primary transition-colors" href="index.html">Home</a>
+<a class="text-sm font-medium hover:text-primary transition-colors" href="about.html">About us</a>
+<a class="text-sm font-medium hover:text-primary transition-colors" href="projects.html">Projects</a>
+<a class="text-sm font-medium hover:text-primary transition-colors" href="publications.html">Publications</a>
+<a class="text-sm font-medium text-primary font-bold" href="proteomes.html">Proteomes DB</a>
+</nav>
+</div>
+</header>
+
+<main class="flex-1 max-w-[1400px] mx-auto w-full px-4 md:px-8 py-8">
+    <!-- Info Banner -->
+    <div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-700 rounded-lg p-4 mb-6">
+        <h3 class="font-bold text-lg mb-2">🔬 BBC Complete Proteomes Database</h3>
+        <p class="text-sm text-gray-700 dark:text-gray-300">Browse >35,000 complete proteomes from diverse species, filtered and analyzed with SNIP & BUSCO. Apply filters, select columns, and export custom datasets.</p>
+    </div>
+
+    <!-- Filters Section -->
+    <div class="bg-white dark:bg-[#111318] rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 mb-6">
+        <h3 class="text-xl font-bold mb-4">Filters</h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 mb-4">
+            <!-- Search -->
+            <div class="min-w-0">
+                <label class="block text-sm font-medium mb-2">Search</label>
+                <input id="searchInput" type="text" placeholder="Species, code, name..." 
+                    class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 focus:ring-2 focus:ring-primary">
+            </div>
+            
+            <!-- Collection -->
+            <div class="min-w-0">
+                <label class="block text-sm font-medium mb-2">Preset collection</label>
+                <select id="collectionSelect" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 focus:ring-2 focus:ring-primary">
+                    <option value="">All Collections</option>
+                </select>
+            </div>
+            
+            <!-- Taxonomy Level -->
+            <div class="min-w-0">
+                <label class="block text-sm font-medium mb-2">Taxonomy Level</label>
+                <select id="taxonomyLevelSelect" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 focus:ring-2 focus:ring-primary">
+                    <option value="">Select Level...</option>
+                </select>
+            </div>
+            
+            <!-- Taxonomy Name -->
+            <div class="min-w-0">
+                <label class="block text-sm font-medium mb-2">Taxon Name</label>
+                <select id="taxonomyNameSelect" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 focus:ring-2 focus:ring-primary" disabled>
+                    <option value="">Select taxon...</option>
+                </select>
+            </div>
+        </div>
+        
+        <!-- BUSCO Filter -->
+        <div class="border-t border-gray-200 dark:border-gray-600 pt-4 mt-4">
+            <h4 class="text-sm font-semibold mb-3">BUSCO Quality Filter</h4>
+            <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
+                <div class="min-w-0">
+                    <label class="block text-sm font-medium mb-2">BUSCO Metric</label>
+                    <select id="buscoMetricSelect" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 focus:ring-2 focus:ring-primary">
+                        <option value="">No BUSCO filter</option>
+                        <option value="Complete BUSCO Domain">Complete BUSCO Domain</option>
+                        <option value="Single BUSCO Domain">Single BUSCO Domain</option>
+                        <option value="Duplicated BUSCO Domain">Duplicated BUSCO Domain</option>
+                        <option value="Fragmented BUSCO Domain">Fragmented BUSCO Domain</option>
+                        <option value="Missing BUSCO Domain">Missing BUSCO Domain</option>
+                        <option value="Complete BUSCO Kingdom">Complete BUSCO Kingdom</option>
+                        <option value="Single BUSCO Kingdom">Single BUSCO Kingdom</option>
+                        <option value="Duplicated BUSCO Kingdom">Duplicated BUSCO Kingdom</option>
+                        <option value="Fragmented BUSCO Kingdom">Fragmented BUSCO Kingdom</option>
+                        <option value="Missing BUSCO Kingdom">Missing BUSCO Kingdom</option>
+                    </select>
+                </div>
+                <div class="min-w-0">
+                    <label class="block text-sm font-medium mb-2">Minimum Value (≥)</label>
+                    <input id="buscoMinValue" type="number" step="0.1" min="0" max="100" placeholder="e.g., 90" 
+                        class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 focus:ring-2 focus:ring-primary">
+                </div>
+            </div>
+        </div>
+        
+        <div class="flex gap-3 mt-4">
+            <button id="applyFiltersBtn" class="px-6 py-2 bg-primary text-white rounded-lg font-medium hover:bg-blue-700 transition-colors">
+                Apply Filters
+            </button>
+            <button id="resetFiltersBtn" class="px-6 py-2 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-lg font-medium hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors">
+                Reset
+            </button>
+        </div>
+    </div>
+
+    <!-- Column Selector -->
+    <div class="bg-white dark:bg-[#111318] rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 mb-6">
+        <div class="flex items-center justify-between mb-4">
+            <h3 class="text-xl font-bold">Column Selection</h3>
+            <div class="flex gap-2">
+                <button id="selectAllColumnsBtn" class="px-4 py-1.5 text-sm bg-gray-100 dark:bg-gray-700 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600">Select All</button>
+                <button id="deselectAllColumnsBtn" class="px-4 py-1.5 text-sm bg-gray-100 dark:bg-gray-700 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600">Deselect All</button>
+            </div>
+        </div>
+        <p class="text-xs text-gray-600 dark:text-gray-400 mb-3">Note: The <strong>Hash</strong> column is mandatory and always included.</p>
+        <div id="columnCheckboxes" class="">
+            <!-- Dynamically populated with grouped sections -->
+        </div>
+        <div class="flex gap-3 mt-6 pt-4 border-t border-gray-200 dark:border-gray-600">
+            <button id="applyFiltersBtn2" class="px-6 py-2 bg-primary text-white rounded-lg font-medium hover:bg-blue-700 transition-colors">
+                Apply Filters
+            </button>
+            <button id="resetFiltersBtn2" class="px-6 py-2 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 rounded-lg font-medium hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors">
+                Reset
+            </button>
+        </div>
+    </div>
+
+    <!-- Results -->
+    <div class="bg-white dark:bg-[#111318] rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
+        <div class="flex items-center justify-between mb-4">
+            <h3 class="text-xl font-bold">Results <span id="resultCount" class="text-gray-500 text-base font-normal"></span></h3>
+            <div class="flex gap-3">
+                <button id="exportTsvBtn" class="px-4 py-2 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 transition-colors">
+                    Export TSV
+                </button>
+                <button id="lifemapBtn" class="px-4 py-2 bg-purple-600 text-white rounded-lg font-medium hover:bg-purple-700 transition-colors">
+                    Lifemap selection
+                </button>
+            </div>
+        </div>
+        
+        <div id="loadingIndicator" class="flex justify-center items-center py-12 hidden">
+            <div class="loader"></div>
+        </div>
+        
+        <div id="resultsContainer" class="overflow-x-auto">
+            <p class="text-gray-500 text-center py-12">Click "Apply Filters" to load proteomes</p>
+        </div>
+        
+        <!-- Pagination -->
+        <div id="paginationContainer" class="flex items-center justify-between mt-6 hidden">
+            <button id="prevPageBtn" class="px-4 py-2 bg-gray-200 dark:bg-gray-700 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 disabled:opacity-50 disabled:cursor-not-allowed">
+                Previous
+            </button>
+            <span id="pageInfo" class="text-sm text-gray-600 dark:text-gray-400"></span>
+            <button id="nextPageBtn" class="px-4 py-2 bg-gray-200 dark:bg-gray-700 rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 disabled:opacity-50 disabled:cursor-not-allowed">
+                Next
+            </button>
+        </div>
+    </div>
+</main>
+
+<footer class="bg-white dark:bg-[#111318] border-t border-[#f0f2f4] dark:border-[#222] py-6 mt-12">
+<div class="max-w-[1400px] mx-auto px-4 md:px-8 text-center text-sm text-gray-600 dark:text-gray-400">
+    <p>&copy; 2026 BBC Lab - IIB-UNMdP-CONICET. All rights reserved.</p>
+</div>
+</footer>
+
+<script src="assets/proteomes.js"></script>
+</body>
+</html>
