@@ -268,24 +268,35 @@ async function loadProteomes() {
 }
 
 function exportData(format) {
-    const params = new URLSearchParams({
-        q: searchInput.value.trim(),
-        collection: collectionSelect.value,
-        taxonomy_level: taxonomyLevelSelect.value,
-        taxonomy_name: taxonomyNameSelect.value,
-        busco_column: buscoMetricSelect.value,
-        busco_min_value: buscoMinValue.value,
-        sort_column: sortColumn,
-        sort_order: sortOrder,
-        columns: Array.from(selectedColumns).join(','),
-        format: format
-    });
-    
-    // Remove empty params
-    for (let [key, value] of [...params.entries()]) {
-        if (!value) params.delete(key);
+    const params = new URLSearchParams();
+
+    const q = searchInput.value.trim();
+    const collection = collectionSelect.value;
+    const taxonomyLevel = taxonomyLevelSelect.value;
+    const taxonomyName = taxonomyNameSelect.value;
+    const buscoColumn = buscoMetricSelect.value;
+    const buscoMin = buscoMinValue.value;
+    const columns = Array.from(selectedColumns).join(',');
+
+    if (q) params.set('q', q);
+    if (collection) params.set('collection', collection);
+    if (taxonomyLevel) params.set('taxonomy_level', taxonomyLevel);
+    if (taxonomyName) params.set('taxonomy_name', taxonomyName);
+    if (buscoColumn) params.set('busco_column', buscoColumn);
+    if (buscoMin !== null && buscoMin !== undefined && String(buscoMin) !== '') {
+        params.set('busco_min_value', buscoMin);
     }
-    
+    if (columns) params.set('columns', columns);
+
+    // Only send sorting when a sort column is selected.
+    // (Otherwise URLSearchParams would stringify null -> 'null', causing API errors.)
+    if (sortColumn) {
+        params.set('sort_column', sortColumn);
+        params.set('sort_order', sortOrder || 'asc');
+    }
+
+    params.set('format', format);
+
     const url = `${API_BASE}/export?${params.toString()}`;
     window.open(url, '_blank');
 }
