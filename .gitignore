@@ -1,0 +1,17 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyd
+
+# Virtual environments
+.venv/
+venv/
+
+# OS/editor
+.DS_Store
+
+# Node
+node_modules/
+
+# Misc
+*.log
