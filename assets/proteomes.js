@@ -117,12 +117,23 @@ function getColumnLabel(key) {
     return key;
 }
 
+function getConfiguredColumnKeys() {
+    const keys = new Set();
+    for (const section of Object.keys(COLUMN_CONFIG)) {
+        for (const item of COLUMN_CONFIG[section]) {
+            if (item && item.key) keys.add(item.key);
+        }
+    }
+    return keys;
+}
+
 // State
 let currentPage = 0;
 let limit = 50;
 let totalResults = 0;
 let availableColumns = [];
 let selectedColumns = new Set();
+let dynamicProteomeColumns = [];
 let sortColumn = null;  // Current sort column
 let sortOrder = 'asc';  // Current sort order (asc/desc)
 
@@ -186,6 +197,13 @@ async function apiGet(endpoint, params = {}) {
 async function loadColumns() {
         const data = await apiGet('/columns');
         availableColumns = data.columns || [];
+
+        // Columns returned by API but not present in the hardcoded config.
+        const configuredKeys = getConfiguredColumnKeys();
+    dynamicProteomeColumns = availableColumns
+            .filter(c => c && !configuredKeys.has(c))
+            .sort((a, b) => String(a).localeCompare(String(b)));
+
         // Initialize selectedColumns per config defaults and availability
         selectedColumns.clear();
         for (const section of Object.keys(COLUMN_CONFIG)) {
@@ -409,6 +427,15 @@ function renderColumnCheckboxes() {
 
     for (const sectionName of Object.keys(COLUMN_CONFIG)) {
         const isTax = sectionName === 'Taxonomy';
+
+        // Newly added optional columns are proteome-level by design, so show them in Proteome.
+        if (sectionName === 'Proteome' && dynamicProteomeColumns.length > 0) {
+            const extras = dynamicProteomeColumns.map(key => ({ key, label: key, default: false }));
+            const merged = [...COLUMN_CONFIG[sectionName], ...extras];
+            grid.appendChild(makeSection(sectionName, merged, isTax));
+            continue;
+        }
+
         grid.appendChild(makeSection(sectionName, COLUMN_CONFIG[sectionName], isTax));
     }
 
@@ -522,6 +549,11 @@ function setupEventListeners() {
                         if (!availableColumns.includes(item.key)) continue;
                         selectedColumns.add(item.key);
                     }
+                }
+                // include dynamic proteome columns that are not in COLUMN_CONFIG
+                for (const key of dynamicProteomeColumns) {
+                    if (!availableColumns.includes(key)) continue;
+                    selectedColumns.add(key);
                 }
                 // ensure mandatory stay selected
                 for (const item of COLUMN_CONFIG['Proteome']) {

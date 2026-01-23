@@ -2,9 +2,11 @@
 import argparse
 import csv
 import os
+import re
 from typing import Dict, List, Tuple
 
 import pymysql
+from pymysql.err import ProgrammingError
 
 PROTEOME_FIELD_MAP = {
     'Hash': 'hash',
@@ -75,6 +77,44 @@ COLLECTION_COLUMNS = [
     'Embryophyta_NR','Embryophyta_Order','Embryophyta_Fam','Embryophyta_Genus'
 ]
 
+
+_DB_COL_RE = re.compile(r"^[A-Za-z_][A-Za-z0-9_]*$")
+
+
+def _infer_converter(mysql_type: str):
+    t = (mysql_type or "").strip().lower()
+    if "tinyint(1)" in t or t == "boolean" or t == "bool":
+        return lambda v: 1 if truthy(v) else 0
+    if "int" in t:
+        return to_int
+    if "double" in t or "float" in t or "decimal" in t:
+        return to_float
+    return lambda v: v if v is not None else None
+
+
+def load_extra_proteome_columns(conn) -> List[Dict[str, str]]:
+    """Load optional proteome-level columns from proteome_column_meta.
+
+    Returns rows with keys: tsv_header, db_column, mysql_type, nullable, default_value
+    """
+    with conn.cursor() as cur:
+        cur.execute(
+            "SELECT tsv_header, db_column, mysql_type, nullable, default_value "
+            "FROM proteome_column_meta"
+        )
+        rows = cur.fetchall()
+
+    extra: List[Dict[str, str]] = []
+    for r in rows:
+        db_col = str(r["db_column"])
+        if not _DB_COL_RE.match(db_col):
+            raise ValueError(f"Invalid db_column in proteome_column_meta: {db_col!r}")
+        tsv_header = str(r["tsv_header"]).strip()
+        if not tsv_header or "`" in tsv_header:
+            raise ValueError(f"Invalid tsv_header in proteome_column_meta: {tsv_header!r}")
+        extra.append(r)
+    return extra
+
 def truthy(val: str) -> bool:
     if val is None:
         return False
@@ -95,16 +135,20 @@ def to_float(val: str):
     except Exception:
         return None
 
-def connect(host: str, user: str, password: str, db: str):
-    return pymysql.connect(
-        host=host,
-        user=user,
-        password=password,
-        database=db,
-        charset='utf8mb4',
-        autocommit=False,
-        cursorclass=pymysql.cursors.DictCursor,
-    )
+def connect(host: str, user: str, password: str, db: str, unix_socket: str | None = None):
+    kwargs = {
+        "user": user,
+        "password": password,
+        "database": db,
+        "charset": "utf8mb4",
+        "autocommit": False,
+        "cursorclass": pymysql.cursors.DictCursor,
+    }
+    if unix_socket:
+        kwargs["unix_socket"] = unix_socket
+    else:
+        kwargs["host"] = host
+    return pymysql.connect(**kwargs)
 
 def ensure_collections(conn):
     with conn.cursor() as cur:
@@ -133,7 +177,7 @@ def get_or_create_taxonomy_term(conn, cache: Dict[Tuple[str, str], int], level: 
         cache[key] = term_id
         return term_id
 
-def upsert_proteome(conn, row: Dict[str, str]):
+def upsert_proteome(conn, row: Dict[str, str], extra_cols: List[Dict[str, str]]):
     """Insert/update a proteome row.
 
     Semantics:
@@ -161,6 +205,36 @@ def upsert_proteome(conn, row: Dict[str, str]):
         else:
             # Keep empty string as empty string (user asked: empty means empty)
             data[k_dst] = v if v is not None else None
+
+    # Apply registered extra columns (proteome_column_meta)
+    for meta in extra_cols:
+        tsv_header = meta["tsv_header"]
+        if tsv_header not in row:
+            continue
+
+        db_col = meta["db_column"]
+        mysql_type = meta["mysql_type"]
+        nullable = bool(int(meta.get("nullable", 1)))
+        default_value = meta.get("default_value")
+
+        raw = row.get(tsv_header)
+        # Present-but-empty semantics:
+        # - If nullable: empty -> NULL
+        # - If NOT NULL: empty -> default (if provided) else error
+        if raw is None or str(raw).strip() == "":
+            if nullable:
+                data[db_col] = None
+            else:
+                if default_value is None:
+                    raise ValueError(
+                        f"TSV column {tsv_header!r} is NOT NULL but value is empty for Hash={row.get('Hash')!r}"
+                    )
+                conv = _infer_converter(mysql_type)
+                data[db_col] = conv(default_value)
+            continue
+
+        conv = _infer_converter(mysql_type)
+        data[db_col] = conv(raw)
 
     if 'hash' not in data:
         raise ValueError('Missing Hash column/value in TSV row')
@@ -218,10 +292,26 @@ def upsert_collections(conn, hash_val: str, row: Dict[str, str]):
                 )
 
 def process_file(args):
-    conn = connect(args.host, args.user, args.password, args.db)
+    conn = connect(args.host, args.user, args.password, args.db, unix_socket=args.unix_socket)
     if not args.no_ensure_collections:
         ensure_collections(conn)
     tax_cache = cache_taxonomy_term(conn)
+    try:
+        extra_cols = load_extra_proteome_columns(conn)
+    except ProgrammingError as e:
+        # Table missing: allow running imports even before optional-column feature is installed.
+        # Anything else (permissions, SQL errors) should be surfaced.
+        code = e.args[0] if e.args else None
+        if code == 1146:
+            extra_cols = []
+        else:
+            raise
+
+    if extra_cols:
+        print(
+            "Optional proteome columns enabled: "
+            + ", ".join([str(r['tsv_header']) for r in extra_cols])
+        )
 
     with open(args.tsv, 'r', encoding='utf-8') as f:
         reader = csv.DictReader(f, delimiter='\t')
@@ -231,7 +321,7 @@ def process_file(args):
             if not hash_val:
                 continue
 
-            upsert_proteome(conn, row)
+            upsert_proteome(conn, row, extra_cols)
 
             # BUSCO: only update metrics whose TSV columns are present.
             busco_d = {
@@ -265,6 +355,7 @@ def main():
     parser.add_argument('--user', default=os.getenv('DB_USER', 'root'))
     parser.add_argument('--password', default=os.getenv('DB_PASSWORD', ''))
     parser.add_argument('--db', default=os.getenv('DB_NAME', 'bbc_proteomes'))
+    parser.add_argument('--unix-socket', dest='unix_socket', default=os.getenv('DB_UNIX_SOCKET'))
     parser.add_argument('--commit-every', type=int, default=1000, help='Commit every N rows for speed and safety')
     parser.add_argument(
         '--no-ensure-collections',

@@ -100,6 +100,19 @@ CREATE TABLE IF NOT EXISTS collection_membership (
   INDEX idx_member_hash (hash)
 );
 
+-- Registry for optional additional proteome-level columns.
+-- This lets admin tooling add/remove columns without changing importer code each time.
+CREATE TABLE IF NOT EXISTS proteome_column_meta (
+  id BIGINT AUTO_INCREMENT PRIMARY KEY,
+  tsv_header VARCHAR(255) NOT NULL,
+  db_column VARCHAR(255) NOT NULL,
+  mysql_type VARCHAR(255) NOT NULL,
+  nullable TINYINT(1) NOT NULL DEFAULT 1,
+  default_value TEXT NULL,
+  UNIQUE KEY uniq_tsv_header (tsv_header),
+  UNIQUE KEY uniq_db_column (db_column)
+);
+
 -- Create a new view name to avoid needing privileges on the old definer-owned view
 CREATE VIEW view_proteomes_flat_v2 AS
 SELECT

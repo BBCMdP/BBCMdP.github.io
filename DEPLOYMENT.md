@@ -22,6 +22,9 @@ export DB_USER=root
 export DB_PASSWORD=YOUR_MYSQL_PASSWORD
 export DB_NAME=bbc_proteomes
 
+# If your MySQL root uses auth_socket (common on Ubuntu/Debian), prefer a UNIX socket:
+# export DB_UNIX_SOCKET=/var/run/mysqld/mysqld.sock
+
 # Optional (recommended): use the materialized flat table for fast filtering
 # If unset, the API will auto-pick `proteomes_flat_mat` when present.
 export DATA_SOURCE=proteomes_flat_mat
@@ -238,6 +241,48 @@ Then modify the frontend to load from JSON instead of API calls.
 - `GET /taxonomy/{level}` - List names for a level
 - `GET /proteomes` - Search/filter proteomes (paginated)
 - `GET /proteomes/{hash}` - Get full proteome details
+
+## Optional Proteome Columns (TSV-driven)
+
+You can add new proteome-level columns (string/float/int/bool) without editing the importer by registering them in the DB metadata table `proteome_column_meta`.
+
+### Add a new column
+
+Important: in bash/zsh you must quote MySQL types that contain parentheses.
+
+```bash
+python3 scripts/manage_proteome_columns.py add \
+    --tsv-header code_vAth \
+    --db-column code_vath \
+    --mysql-type 'VARCHAR(128)' \
+    --not-null \
+    --default ''
+```
+
+### Populate/update values
+
+Create a delta TSV with at least `Hash` and your new TSV header (e.g. `code_vAth`), then run:
+
+```bash
+python3 scripts/import_tsv.py --tsv path/to/delta.tsv --host "$DB_HOST" --user "$DB_USER" --password "$DB_PASSWORD" --db "$DB_NAME"
+python3 scripts/refresh_flat_table.py --create-ddl
+
+# If using auth_socket:
+# python3 scripts/import_tsv.py --tsv path/to/delta.tsv --unix-socket "$DB_UNIX_SOCKET" --user root --db "$DB_NAME"
+# python3 scripts/refresh_flat_table.py --create-ddl --unix-socket "$DB_UNIX_SOCKET" --user root --db "$DB_NAME"
+```
+
+If the API is running and you want it to pick up new columns immediately, call `POST /admin/reload` (and send `X-Admin-Token` if you set `ADMIN_TOKEN`).
+
+### Remove a column
+
+Unregister the column (and optionally drop it from the `proteome` table):
+
+```bash
+python3 scripts/manage_proteome_columns.py remove code_vAth
+# or destructive:
+python3 scripts/manage_proteome_columns.py remove code_vAth --drop-db-column
+```
 - `GET /export` - Export as TSV/CSV
 - `POST /collections` - Create/update custom collection
 

@@ -4,7 +4,7 @@ import csv
 import io
 
 import pymysql
-from fastapi import FastAPI, HTTPException, Query
+from fastapi import FastAPI, HTTPException, Query, Header
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse, JSONResponse
 from pymysql.err import OperationalError
@@ -16,9 +16,17 @@ DB_PASSWORD = os.getenv('DB_PASSWORD', '')
 DB_NAME = os.getenv('DB_NAME', 'bbc_proteomes')
 VIEW_NAME = os.getenv('VIEW_NAME', 'view_proteomes_flat_v2')
 DATA_SOURCE = os.getenv('DATA_SOURCE')
+ADMIN_TOKEN = os.getenv('ADMIN_TOKEN')
 
 _RESOLVED_SOURCE_NAME: Optional[str] = None
 _AVAILABLE_COLS_CACHE: Dict[str, set] = {}
+
+
+def _check_admin_token(token: Optional[str]):
+    if not ADMIN_TOKEN:
+        return
+    if token != ADMIN_TOKEN:
+        raise HTTPException(status_code=403, detail="Forbidden")
 
 
 def _resolve_source_name(cur) -> str:
@@ -108,6 +116,20 @@ def list_columns():
             source = _resolve_source_name(cur)
             columns = sorted(_get_available_columns(cur, source))
             return {"columns": columns}
+
+
+@app.post("/admin/reload")
+def admin_reload(x_admin_token: Optional[str] = Header(None)):
+    """Clear cached source/column info.
+
+    Useful after schema changes or materialized-table column additions.
+    If ADMIN_TOKEN is set, require X-Admin-Token header.
+    """
+    _check_admin_token(x_admin_token)
+    global _RESOLVED_SOURCE_NAME
+    _RESOLVED_SOURCE_NAME = None
+    _AVAILABLE_COLS_CACHE.clear()
+    return {"status": "ok"}
 
 
 @app.get("/collections")
