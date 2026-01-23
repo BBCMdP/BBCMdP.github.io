@@ -134,37 +134,65 @@ def get_or_create_taxonomy_term(conn, cache: Dict[Tuple[str, str], int], level: 
         return term_id
 
 def upsert_proteome(conn, row: Dict[str, str]):
+    """Insert/update a proteome row.
+
+    Semantics:
+    - Missing TSV columns (not present in the header) do NOT modify DB fields.
+    - Present-but-empty cells are applied as empty/NULL/0 depending on field type.
+    """
     data = {}
     for k_src, k_dst in PROTEOME_FIELD_MAP.items():
+        if k_src not in row:
+            continue
         v = row.get(k_src)
         if k_dst in ('in_ncbi_refseq', 'post_snip'):
+            # Empty => false
             data[k_dst] = 1 if truthy(v) else 0
-        elif k_dst in ('num_seqs', 'sum_len', 'min_len', 'max_len', 'num_seqs_snip_processed', 'sum_len_snip_processed', 'min_len_snip_processed', 'max_len_snip_processed', 'taxid', 'species_taxid'):
+        elif k_dst in (
+            'num_seqs', 'sum_len', 'min_len', 'max_len',
+            'num_seqs_snip_processed', 'sum_len_snip_processed',
+            'min_len_snip_processed', 'max_len_snip_processed',
+            'taxid', 'species_taxid',
+        ):
+            # Empty/non-numeric => NULL
             data[k_dst] = to_int(v)
         elif k_dst in ('avg_len', 'avg_len_snip_processed'):
             data[k_dst] = to_float(v)
         else:
+            # Keep empty string as empty string (user asked: empty means empty)
             data[k_dst] = v if v is not None else None
 
-    placeholders = ','.join(['%s'] * len(data))
-    columns = ','.join(data.keys())
-    updates = ','.join([f"{col}=VALUES({col})" for col in data.keys() if col != 'hash'])
-    sql = f"INSERT INTO proteome({columns}) VALUES({placeholders}) ON DUPLICATE KEY UPDATE {updates}"
+    if 'hash' not in data:
+        raise ValueError('Missing Hash column/value in TSV row')
+
     with conn.cursor() as cur:
+        if len(data) == 1:
+            # Only the primary key is present; insert if missing, otherwise no-op.
+            cur.execute("INSERT IGNORE INTO proteome(hash) VALUES (%s)", (data['hash'],))
+            return
+
+        placeholders = ','.join(['%s'] * len(data))
+        columns = ','.join(data.keys())
+        updates = ','.join([f"{col}=VALUES({col})" for col in data.keys() if col != 'hash'])
+        sql = f"INSERT INTO proteome({columns}) VALUES({placeholders}) ON DUPLICATE KEY UPDATE {updates}"
         cur.execute(sql, list(data.values()))
 
 def upsert_busco(conn, hash_val: str, rank: str, metrics: Dict[str, float]):
-    sql = (
-        "INSERT INTO busco_summary(hash, `rank`, complete, single_copy, duplicated, fragmented, missing) "
-        "VALUES (%s, %s, %s, %s, %s, %s, %s) "
-        "ON DUPLICATE KEY UPDATE complete=VALUES(complete), single_copy=VALUES(single_copy), "
-        "duplicated=VALUES(duplicated), fragmented=VALUES(fragmented), missing=VALUES(missing)"
-    )
+    """Update BUSCO metrics for one rank.
+
+    Only updates fields present in `metrics`.
+    (Missing TSV columns should not overwrite existing DB values.)
+    """
+    if not metrics:
+        return
     with conn.cursor() as cur:
-        cur.execute(sql, (
-            hash_val, rank,
-            metrics.get('complete'), metrics.get('single_copy'), metrics.get('duplicated'), metrics.get('fragmented'), metrics.get('missing')
-        ))
+        cur.execute("INSERT IGNORE INTO busco_summary(hash, `rank`) VALUES (%s, %s)", (hash_val, rank))
+        set_sql = ', '.join([f"{k}=%s" for k in metrics.keys()])
+        params = list(metrics.values()) + [hash_val, rank]
+        cur.execute(
+            f"UPDATE busco_summary SET {set_sql} WHERE hash=%s AND `rank`=%s",
+            params,
+        )
 
 def upsert_taxonomy(conn, cache, hash_val: str, row: Dict[str, str]):
     with conn.cursor() as cur:
@@ -191,7 +219,8 @@ def upsert_collections(conn, hash_val: str, row: Dict[str, str]):
 
 def process_file(args):
     conn = connect(args.host, args.user, args.password, args.db)
-    ensure_collections(conn)
+    if not args.no_ensure_collections:
+        ensure_collections(conn)
     tax_cache = cache_taxonomy_term(conn)
 
     with open(args.tsv, 'r', encoding='utf-8') as f:
@@ -204,10 +233,19 @@ def process_file(args):
 
             upsert_proteome(conn, row)
 
-            busco_d = {k_dst: to_float(row.get(k_src)) for k_src, k_dst in BUSCO_DOMAIN_MAP.items()}
+            # BUSCO: only update metrics whose TSV columns are present.
+            busco_d = {
+                k_dst: to_float(row.get(k_src))
+                for k_src, k_dst in BUSCO_DOMAIN_MAP.items()
+                if k_src in row
+            }
             upsert_busco(conn, hash_val, 'Domain', busco_d)
 
-            busco_k = {k_dst: to_float(row.get(k_src)) for k_src, k_dst in BUSCO_KINGDOM_MAP.items()}
+            busco_k = {
+                k_dst: to_float(row.get(k_src))
+                for k_src, k_dst in BUSCO_KINGDOM_MAP.items()
+                if k_src in row
+            }
             upsert_busco(conn, hash_val, 'Kingdom', busco_k)
 
             upsert_taxonomy(conn, tax_cache, hash_val, row)
@@ -228,6 +266,11 @@ def main():
     parser.add_argument('--password', default=os.getenv('DB_PASSWORD', ''))
     parser.add_argument('--db', default=os.getenv('DB_NAME', 'bbc_proteomes'))
     parser.add_argument('--commit-every', type=int, default=1000, help='Commit every N rows for speed and safety')
+    parser.add_argument(
+        '--no-ensure-collections',
+        action='store_true',
+        help='Do not auto-create the preset collections list (lets you permanently remove a collection name)',
+    )
     args = parser.parse_args()
 
     process_file(args)

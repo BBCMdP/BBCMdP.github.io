@@ -254,6 +254,44 @@ Re-run the importer:
 python scripts/import_tsv.py --tsv updated_data.tsv --host localhost --user root --password ... --db bbc_proteomes
 ```
 
+Importer semantics (important for incremental updates):
+- You can import a TSV with *only the rows you want to add/update* (keyed by `Hash`).
+- Missing columns (not present in the TSV header) do **not** modify existing DB fields.
+- Empty cells in present columns are applied as empty/NULL/0 depending on the field.
+
+After updating data, refresh the materialized table used by the API:
+
+```bash
+python scripts/refresh_flat_table.py
+```
+
+### Manage collections (add/replace/delete)
+
+Collections live in the database as:
+- `collection` (collection names)
+- `collection_membership` (members, as `hash` values)
+
+To add a new collection from a list of hashes:
+
+```bash
+python scripts/manage_collections.py replace \
+    --name New_collection_plants \
+    --hashes-file hashes.txt
+```
+
+To delete a collection entirely:
+
+```bash
+python scripts/manage_collections.py delete --name Archaea_NR
+```
+
+Note: `scripts/import_tsv.py` will (by default) auto-create the preset collection names it knows about.
+If you intentionally deleted a preset collection name and want it to stay deleted, run imports with:
+
+```bash
+python scripts/import_tsv.py --tsv updated_data.tsv --no-ensure-collections
+```
+
 ### Backup database
 ```bash
 mysqldump -u root -p bbc_proteomes > backup_$(date +%F).sql
