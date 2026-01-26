@@ -29,11 +29,25 @@
     html { scroll-behavior: smooth; }
     .loader { border: 3px solid #f3f3f3; border-top: 3px solid #1152d4; border-radius: 50%; width: 30px; height: 30px; animation: spin 1s linear infinite; }
     @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    .help-toggle { cursor: pointer; user-select: none; }
+    .help-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
+    .help-content.expanded { max-height: 2000px; }
+    .info-icon { display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 50%; background-color: rgba(17, 82, 212, 0.1); color: #1152d4; font-size: 12px; font-weight: bold; cursor: help; position: relative; margin-left: 4px; }
+    .tooltip { position: absolute; bottom: 125%; left: 50%; transform: translateX(-50%); background-color: #111318; color: white; padding: 8px 12px; border-radius: 0.5rem; font-size: 12px; white-space: nowrap; opacity: 0; transition: opacity 0.2s; pointer-events: none; z-index: 100; }
+    .info-icon:hover .tooltip { opacity: 1; }
 </style>
 </head>
 <link rel="stylesheet" href="assets/css/main.css">
 <script src="assets/config.js?v=20260126"></script>
 <body class="bg-background-light dark:bg-background-dark text-[#111318] dark:text-white font-display flex flex-col min-h-screen">
+<script>
+    function toggleHelp() {
+        const helpContent = document.getElementById('helpContent');
+        const helpIcon = document.getElementById('helpToggleIcon');
+        helpContent.classList.toggle('expanded');
+        helpIcon.textContent = helpContent.classList.contains('expanded') ? 'expand_less' : 'expand_more';
+    }
+</script>
 <header class="bg-white dark:bg-[#111318] border-b border-[#f0f2f4] dark:border-[#222] sticky top-0 z-50">
 <div class="max-w-[1400px] mx-auto px-4 md:px-8 py-3 flex items-center justify-between flex-wrap gap-4">
 <div class="flex items-center gap-3">
@@ -62,27 +76,77 @@
         <p class="text-sm text-gray-700 dark:text-gray-300">Browse >35,000 complete proteomes from diverse species, filtered and analyzed with SNIP & BUSCO. Apply filters, select columns, and export custom datasets.</p>
     </div>
 
+    <!-- Help Panel (Collapsible) -->
+    <div class="bg-amber-50 dark:bg-amber-900/10 border border-amber-200 dark:border-amber-700 rounded-lg mb-6">
+        <div class="help-toggle p-4 flex items-center gap-2 cursor-pointer hover:bg-amber-100 dark:hover:bg-amber-900/20 transition-colors rounded-lg" onclick="toggleHelp()">
+            <span class="material-symbols-outlined text-amber-700 dark:text-amber-400 text-xl" style="font-size: 20px;">help</span>
+            <h3 class="font-bold text-amber-900 dark:text-amber-300">How to use filters and explore data</h3>
+            <span class="material-symbols-outlined text-amber-700 dark:text-amber-400 ml-auto" id="helpToggleIcon" style="font-size: 20px;">expand_more</span>
+        </div>
+        <div id="helpContent" class="help-content px-4 pb-4 text-sm text-gray-700 dark:text-gray-300 space-y-3">
+            <div>
+                <strong class="text-amber-900 dark:text-amber-300">Search (text):</strong> Searches across multiple proteome fields: Hash, Proteome source, AssemblyID, URL, NCBI refseq, Species, taxID, taxID at species level, NCBI's Current Scientific Name, Common name, NCBI's Group name, Informal clade, and Proteome's code renamed.
+            </div>
+            <div>
+                <strong class="text-amber-900 dark:text-amber-300">Hash (exact):</strong> Enter one or more proteome hashes (comma, space, or newline separated) to find specific proteomes.
+            </div>
+            <div>
+                <strong class="text-amber-900 dark:text-amber-300">Preset collection:</strong> Pre-defined proteome datasets, typically associated with specific or broad taxonomical distributions.
+            </div>
+            <div>
+                <strong class="text-amber-900 dark:text-amber-300">Taxonomy filters:</strong> First select a Taxonomy Level, then choose a Taxon Name from the dropdown. Use these together to narrow by taxonomy.
+            </div>
+            <div>
+                <strong class="text-amber-900 dark:text-amber-300">BUSCO quality:</strong> Select a BUSCO metric and set a minimum value (≥) to filter proteomes by quality.
+            </div>
+            <div>
+                <strong class="text-amber-900 dark:text-amber-300">Column selection:</strong> Customize which columns appear in results. Changes take effect when you click "Apply Filters".
+            </div>
+            <div>
+                <strong class="text-amber-900 dark:text-amber-300">Export:</strong> Download results as TSV. <strong class="text-amber-900 dark:text-amber-300">Lifemap:</strong> Explore the taxonomical distribution of results using taxID at species level.
+            </div>
+        </div>
+    </div>
+
     <!-- Filters Section -->
     <div class="bg-white dark:bg-[#111318] rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 mb-6">
         <h3 class="text-xl font-bold mb-4">Filters</h3>
         <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 mb-4">
             <!-- Search -->
             <div class="min-w-0">
-                <label class="block text-sm font-medium mb-2">Search</label>
+                <label class="block text-sm font-medium mb-2">
+                    Search
+                    <span class="info-icon" title="Searches across Hash, Proteome source, AssemblyID, URL, NCBI refseq, Species, taxID, and more">
+                        ?
+                        <span class="tooltip">Searches across multiple proteome fields</span>
+                    </span>
+                </label>
                 <input id="searchInput" type="text" placeholder="Species, code, name..." 
                     class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 focus:ring-2 focus:ring-primary">
             </div>
 
             <!-- Hash exact filter -->
             <div class="min-w-0">
-                <label class="block text-sm font-medium mb-2">Hash (exact)</label>
+                <label class="block text-sm font-medium mb-2">
+                    Hash (exact)
+                    <span class="info-icon" title="Enter one or more hashes comma/space/newline separated">
+                        ?
+                        <span class="tooltip">Comma, space, or newline separated</span>
+                    </span>
+                </label>
                 <input id="hashInput" type="text" placeholder="One or more hashes (comma/space/newline separated)"
                     class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 focus:ring-2 focus:ring-primary">
             </div>
             
             <!-- Collection -->
             <div class="min-w-0">
-                <label class="block text-sm font-medium mb-2">Preset collection</label>
+                <label class="block text-sm font-medium mb-2">
+                    Preset collection
+                    <span class="info-icon" title="Pre-defined proteome datasets with various taxonomical distributions">
+                        ?
+                        <span class="tooltip">Pre-defined taxonomical datasets</span>
+                    </span>
+                </label>
                 <select id="collectionSelect" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 focus:ring-2 focus:ring-primary">
                     <option value="">All Collections</option>
                 </select>
@@ -90,7 +154,13 @@
             
             <!-- Taxonomy Level -->
             <div class="min-w-0">
-                <label class="block text-sm font-medium mb-2">Taxonomy Level</label>
+                <label class="block text-sm font-medium mb-2">
+                    Taxonomy Level
+                    <span class="info-icon" title="Select a taxonomical level first, then choose a taxon name">
+                        ?
+                        <span class="tooltip">Select level first</span>
+                    </span>
+                </label>
                 <select id="taxonomyLevelSelect" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 focus:ring-2 focus:ring-primary">
                     <option value="">Select Level...</option>
                 </select>
@@ -98,7 +168,13 @@
             
             <!-- Taxonomy Name -->
             <div class="min-w-0">
-                <label class="block text-sm font-medium mb-2">Taxon Name</label>
+                <label class="block text-sm font-medium mb-2">
+                    Taxon Name
+                    <span class="info-icon" title="Choose a taxon within the selected taxonomy level">
+                        ?
+                        <span class="tooltip">Within selected level</span>
+                    </span>
+                </label>
                 <select id="taxonomyNameSelect" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 focus:ring-2 focus:ring-primary" disabled>
                     <option value="">Select taxon...</option>
                 </select>
@@ -107,7 +183,13 @@
         
         <!-- BUSCO Filter -->
         <div class="border-t border-gray-200 dark:border-gray-600 pt-4 mt-4">
-            <h4 class="text-sm font-semibold mb-3">BUSCO Quality Filter</h4>
+            <h4 class="text-sm font-semibold mb-3 flex items-center gap-2">
+                BUSCO Quality Filter
+                <span class="info-icon" title="Filter proteomes by BUSCO metric with a minimum value threshold">
+                    ?
+                    <span class="tooltip">Set minimum quality threshold</span>
+                </span>
+            </h4>
             <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
                 <div class="min-w-0">
                     <label class="block text-sm font-medium mb-2">BUSCO Metric</label>
