@@ -2,6 +2,7 @@ from typing import Optional, List, Dict
 import os
 import csv
 import io
+import re
 
 import pymysql
 from fastapi import FastAPI, HTTPException, Query, Header
@@ -20,6 +21,24 @@ ADMIN_TOKEN = os.getenv('ADMIN_TOKEN')
 
 _RESOLVED_SOURCE_NAME: Optional[str] = None
 _AVAILABLE_COLS_CACHE: Dict[str, set] = {}
+
+
+_SPLIT_HASHES_RE = re.compile(r"[\s,]+")
+
+
+def _parse_hashes(hashes: Optional[str]) -> List[str]:
+    if not hashes:
+        return []
+    parts = [p.strip() for p in _SPLIT_HASHES_RE.split(hashes) if p and p.strip()]
+    # De-duplicate while keeping order.
+    seen = set()
+    out: List[str] = []
+    for p in parts:
+        if p in seen:
+            continue
+        seen.add(p)
+        out.append(p)
+    return out
 
 
 def _check_admin_token(token: Optional[str]):
@@ -171,6 +190,7 @@ def list_taxonomy_names(level: str):
 @app.get("/proteomes")
 def list_proteomes(
     q: Optional[str] = Query(None, description="Search in species, code_vFV, current_scientific_name"),
+    hashes: Optional[str] = Query(None, description="Exact hash filter (comma/whitespace/newline separated; no partial matching)"),
     collection: Optional[str] = Query(None, description="Filter by collection name"),
     taxonomy_level: Optional[str] = Query(None, description="Taxonomy level, e.g., Phylum"),
     taxonomy_name: Optional[str] = Query(None, description="Taxon name at the given level"),
@@ -193,6 +213,12 @@ def list_proteomes(
             source = _resolve_source_name(cur)
             available_cols = _get_available_columns(cur, source)
 
+            for c in selected_columns:
+                if '`' in c:
+                    raise HTTPException(status_code=400, detail="Invalid column")
+                if c not in available_cols:
+                    raise HTTPException(status_code=400, detail=f"Unknown column: {c}")
+
             select_cols = ', '.join([f"s.`{c}`" for c in selected_columns])
 
             params: List = []
@@ -207,11 +233,35 @@ def list_proteomes(
 
             where_clauses = []
 
+            # Exact hash filter (supports multiple hashes)
+            hash_values = _parse_hashes(hashes)
+            if hash_values:
+                if len(hash_values) == 1:
+                    where_clauses.append("s.`hash` = %s")
+                    params.append(hash_values[0])
+                else:
+                    placeholders = ", ".join(["%s"] * len(hash_values))
+                    where_clauses.append(f"s.`hash` IN ({placeholders})")
+                    params.extend(hash_values)
+
             # Search filter
             if q:
-                where_clauses.append("(s.`Species` LIKE %s OR s.`code_vFV` LIKE %s OR s.`current_scientific_name` LIKE %s)")
                 like = f"%{q}%"
-                params.extend([like, like, like])
+                search_cols = [
+                    'Species',
+                    'code_vFV',
+                    'current_scientific_name',
+                    # Additional Proteome section columns
+                    'hash',
+                    'Origin CP',
+                    'informal_clade',
+                    'AssemblyID',
+                    'web',
+                ]
+                search_cols = [c for c in search_cols if c in available_cols]
+                if search_cols:
+                    where_clauses.append("(" + " OR ".join([f"s.`{c}` LIKE %s" for c in search_cols]) + ")")
+                    params.extend([like] * len(search_cols))
 
             # Taxonomy filter
             # Fast-path: if the flattened column exists (Domain/Phylum/... as a column), filter directly.
@@ -289,6 +339,7 @@ def get_proteome(hash: str):
 @app.get("/export")
 def export_proteomes(
     q: Optional[str] = Query(None),
+    hashes: Optional[str] = Query(None, description="Exact hash filter (comma/whitespace/newline separated; no partial matching)"),
     collection: Optional[str] = Query(None),
     taxonomy_level: Optional[str] = Query(None),
     taxonomy_name: Optional[str] = Query(None),
@@ -330,10 +381,34 @@ def export_proteomes(
 
             where_clauses = []
 
+            # Exact hash filter (supports multiple hashes)
+            hash_values = _parse_hashes(hashes)
+            if hash_values:
+                if len(hash_values) == 1:
+                    where_clauses.append("s.`hash` = %s")
+                    params.append(hash_values[0])
+                else:
+                    placeholders = ", ".join(["%s"] * len(hash_values))
+                    where_clauses.append(f"s.`hash` IN ({placeholders})")
+                    params.extend(hash_values)
+
             if q:
-                where_clauses.append("(s.`Species` LIKE %s OR s.`code_vFV` LIKE %s OR s.`current_scientific_name` LIKE %s)")
                 like = f"%{q}%"
-                params.extend([like, like, like])
+                search_cols = [
+                    'Species',
+                    'code_vFV',
+                    'current_scientific_name',
+                    # Additional Proteome section columns
+                    'hash',
+                    'Origin CP',
+                    'informal_clade',
+                    'AssemblyID',
+                    'web',
+                ]
+                search_cols = [c for c in search_cols if c in available_cols]
+                if search_cols:
+                    where_clauses.append("(" + " OR ".join([f"s.`{c}` LIKE %s" for c in search_cols]) + ")")
+                    params.extend([like] * len(search_cols))
 
             if taxonomy_level and taxonomy_name:
                 if taxonomy_level in available_cols:

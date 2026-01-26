@@ -139,6 +139,7 @@ let sortOrder = 'asc';  // Current sort order (asc/desc)
 
 // DOM Elements
 const searchInput = document.getElementById('searchInput');
+const hashInput = document.getElementById('hashInput');
 const collectionSelect = document.getElementById('collectionSelect');
 const taxonomyLevelSelect = document.getElementById('taxonomyLevelSelect');
 const taxonomyNameSelect = document.getElementById('taxonomyNameSelect');
@@ -262,6 +263,7 @@ async function loadProteomes() {
     try {
         const params = {
             q: searchInput.value.trim(),
+            hashes: hashInput ? hashInput.value.trim() : '',
             collection: collectionSelect.value,
             taxonomy_level: taxonomyLevelSelect.value,
             taxonomy_name: taxonomyNameSelect.value,
@@ -289,6 +291,7 @@ function exportData(format) {
     const params = new URLSearchParams();
 
     const q = searchInput.value.trim();
+    const hashes = hashInput ? hashInput.value.trim() : '';
     const collection = collectionSelect.value;
     const taxonomyLevel = taxonomyLevelSelect.value;
     const taxonomyName = taxonomyNameSelect.value;
@@ -297,6 +300,7 @@ function exportData(format) {
     const columns = Array.from(selectedColumns).join(',');
 
     if (q) params.set('q', q);
+    if (hashes) params.set('hashes', hashes);
     if (collection) params.set('collection', collection);
     if (taxonomyLevel) params.set('taxonomy_level', taxonomyLevel);
     if (taxonomyName) params.set('taxonomy_name', taxonomyName);
@@ -325,6 +329,7 @@ async function openLifemap() {
         // Fetch all filtered results with species_taxid column
         const params = {
             q: searchInput.value.trim(),
+            hashes: hashInput ? hashInput.value.trim() : '',
             collection: collectionSelect.value,
             taxonomy_level: taxonomyLevelSelect.value,
             taxonomy_name: taxonomyNameSelect.value,
@@ -529,6 +534,7 @@ function setupEventListeners() {
     
     resetFiltersBtn.addEventListener('click', () => {
         searchInput.value = '';
+        if (hashInput) hashInput.value = '';
         collectionSelect.value = '';
         taxonomyLevelSelect.value = '';
         taxonomyNameSelect.value = '';
@@ -578,6 +584,7 @@ function setupEventListeners() {
     
     resetFiltersBtn2.addEventListener('click', () => {
         searchInput.value = '';
+        if (hashInput) hashInput.value = '';
         collectionSelect.value = '';
         taxonomyLevelSelect.value = '';
         taxonomyNameSelect.value = '';
@@ -612,6 +619,15 @@ function setupEventListeners() {
             loadProteomes();
         }
     });
+
+    if (hashInput) {
+        hashInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                currentPage = 0;
+                loadProteomes();
+            }
+        });
+    }
 }
 
 // Initialize on load
