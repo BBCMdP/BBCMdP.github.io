@@ -148,7 +148,7 @@ def add_column(
     conn.commit()
 
 
-def remove_column(conn, *, key: str, drop_db_column: bool):
+def remove_column(conn, *, key: str, drop_db_column: bool, drop_mat_column: bool):
     key = (key or "").strip()
     if not key:
         raise ValueError("key cannot be empty")
@@ -174,6 +174,12 @@ def remove_column(conn, *, key: str, drop_db_column: bool):
 
         if drop_db_column and _column_exists(cur, "proteome", db_column):
             cur.execute(f"ALTER TABLE proteome DROP COLUMN `{db_column}`")
+
+        # `proteomes_flat_mat` exposes optional columns using the TSV header as the column name.
+        # If we remove the meta entry, the refresh script won't populate the column anymore,
+        # but the column would still exist and would keep showing up via SHOW COLUMNS.
+        if drop_mat_column and _column_exists(cur, "proteomes_flat_mat", tsv_header):
+            cur.execute(f"ALTER TABLE proteomes_flat_mat DROP COLUMN `{tsv_header}`")
 
     conn.commit()
 
@@ -209,6 +215,11 @@ def main():
         action="store_true",
         help="Also ALTER TABLE proteome DROP COLUMN (destructive)",
     )
+    p_rm.add_argument(
+        "--drop-mat-column",
+        action="store_true",
+        help="Also ALTER TABLE proteomes_flat_mat DROP COLUMN (uses the TSV header as column name)",
+    )
 
     args = parser.parse_args()
 
@@ -236,7 +247,12 @@ def main():
     if args.cmd == "remove":
         conn = connect(args.host, args.user, args.password, args.db, unix_socket=args.unix_socket)
         try:
-            remove_column(conn, key=args.key, drop_db_column=args.drop_db_column)
+            remove_column(
+                conn,
+                key=args.key,
+                drop_db_column=args.drop_db_column,
+                drop_mat_column=args.drop_mat_column,
+            )
         finally:
             conn.close()
         return
